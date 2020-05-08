@@ -1,0 +1,197 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+
+// @import url('//fonts.googleapis.com/icon?family=Material+Icons');
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
+
+/**
+ * Configuracion del tema
+
+
+$primary: mat-palette($mat-green, 800);
+$accent:  mat-palette($mat-yellow, 600, 100, 800);
+$warn:    mat-palette($mat-red, 600);
+
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+$darkTheme: mat-dark-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+*/
+
+
+/**
+* Variables Entornos
+*/
+
+
+$font-stack: Helvetica,
+sans-serif;
+$font-primary: Roboto,
+'Helvetice New',
+'Arial',
+sans-serif;
+$primary-color: #333;
+$color-success: green;
+$color-error: red;
+$color-warn: orange;
+$color-primary: #2e7d32;
+$image-background: "./assets/images/background";
+
+
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+
+
+body {
+    margin: 0;
+    font-family: $font-primary;
+    background: url("#{$image-background}/playstation-pattern.png");
+    background-repeat: repeat;
+}
+
+
+/**
+* Mantiene iconos de Material
+*/
+
+.mat-drawer-container {
+    background-color: transparent;
+}
+
+
+/**
+* theme material
+*/
+
+.color-primary {
+    color: $color-primary;
+}
+
+.color-accent {
+    color: $color-error;
+}
+
+.center-div {
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.element-alla {
+    height: 100vh;
+    /* For 100% screen height */
+    width: 100vw;
+    /* For 100% screen width */
+}
+
+
+/**
+Form
+**/
+
+.form-card {
+    border: 1px solid #ccc;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container>* {
+    width: 100%;
+}
+
+.form-container form {
+    margin-bottom: 20px;
+}
+
+.form-container form>* {
+    margin: 5px 0;
+}
+
+.input-full-width {
+    width: 100%;
+}
+
+.card-actions {
+    margin-left: 12px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.cero-margin {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.more-button-right {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+
+/**
+* Elementos Bootstrap
+*/
+
+.container-fluid {
+    margin-top: 15px;
+}
+
+
+/**
+ * Elements DataTable
+ */
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+    padding: 0px;
+}
+
+div.customize {
+    float: left;
+}
+
+.color-backgroud-primary {
+    background-color: $color-primary;
+    color: white;
+}
+
+
+/**
+*
+*
+*/
+
+img.avatar {
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 200px;
+    width: 200px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    border: 2px solid grey;
+}

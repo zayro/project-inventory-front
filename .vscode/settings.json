@@ -1,0 +1,17 @@
+{
+
+  "eslint.autoFixOnSave": true,
+  "tslint.autoFixOnSave": true,
+  "tslint.alwaysShowStatus": true,
+  "prettier.useTabs":true,
+  "prettier.eslintIntegration": true,
+  "tslint.enable": true,
+  "files.exclude": {
+    "node_modules/": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+
+
+}

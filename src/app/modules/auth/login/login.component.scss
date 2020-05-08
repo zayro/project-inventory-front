@@ -1,0 +1,22 @@
+.login-card {
+    border: 1px solid #ccc;
+  }
+  
+  .login-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-container > * {
+    width: 100%;
+  }
+  
+  .login-container form {
+    margin-bottom: 20px;
+  }
+  
+  .login-container form > * {
+    margin: 5px 0;
+  }
+  
+  

@@ -1,0 +1,64 @@
+{
+    "PLUGINS": {
+        "dataTable": {
+            "lang": "assets/i18n/datable/en.json"
+        }
+    },
+    "TITLES": {
+        "add_record": "Add record",
+        "update_record": "Update record",
+        "delete_record": "Delete record",
+        "list_record": "List record"
+    },
+    "VALIDATION": {
+        "field_required": "required field",
+        "field_invalid": "invalid field"
+    },
+    "BUTTON": {
+        "login": "LOGIN",
+        "send": "SEND",
+        "cancel": "CANCEL",
+        "edit": "edit",
+        "add": "add",
+        "delete": "delete",
+        "clear": "clear",
+        "clear_file": "clear file"
+    },
+    "HOME": {
+        "SLOGAN": "ZAVWEB",
+        "TITLE": "Hello Angular with ngx-translate!",
+        "SELECT": "Change language"
+    },
+    "MODULES": {
+        "LOGIN": {
+            "title": "Authentication"
+        },
+        "config": {
+            "title_tab1": "Configuration",
+            "title_tab2": "Change Password",
+            "title_tab3": "Change Menu"
+        }
+    },
+    "FORM": {
+        "first_name": "first name",
+        "second_name": "second name",
+        "first_surname": "first surname",
+        "second_surname": "second surname",
+        "phone": "phone"
+    },
+
+    "MENU": {
+        "home": { "title": "Home" },
+        "audit": {
+            "title": "Audit",
+            "table": {
+                "process": "process",
+                "message": "message",
+                "user": "user"
+            }
+        },
+        "config": {
+            "title": "Configuration"
+        }
+    }
+}

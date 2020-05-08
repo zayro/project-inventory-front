@@ -1,0 +1,103 @@
+<div [ngClass]="theme">
+
+    <mat-sidenav-container class="sidenav-container">
+
+        <mat-sidenav #sidenav class="sidenav" [mode]="mode.value">
+
+            <mat-toolbar color="primary">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon aria-label="Side nav toggle icon" svgIcon="menu">menu</mat-icon>
+                </button> MENU
+            </mat-toolbar>
+
+
+            <div *ngIf="config.shutdown">
+
+                <div [hidden]="config.infoUser.image != null"
+                    class="row justify-content-center align-items-center avatar" layout-align="center center">
+                    <ngx-avatar name="{{user$.info.first_name + ' ' + user$.info.second_name}}" size="100"></ngx-avatar>
+                </div>
+
+                <div class="row justify-content-center align-items-center avatar" layout-align="center center">
+                    <p [hidden]="config.infoUser.image == null"> <img src="{{config.infoUser.image}}"
+                            class="avatar mx-auto d-block" width='200px' height='200px' alt="image"> </p>
+                </div>
+
+                <div class="text-center">
+                    <h5>{{user$.info.first_name + ' ' + user$.info.second_name}}</h5>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let item of user$.menu" routerLink="{{item.link}}"
+                    (click)="sidenav.toggle()">{{item.menu }} <mat-divider></mat-divider> </a>
+            </mat-nav-list>
+
+
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <mat-toolbar color="primary">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon aria-label="Side nav toggle icon" svgIcon="menu">menu</mat-icon>
+                </button>
+                <!-- <img src="./assets/images/business/Ecopetrol_logo.svg_.png" height="50" width="150"> -->
+                <span>{{ translate.locale.HOME.slogan  }} {{theme}}</span>
+                <span class="example-spacer"></span>
+
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon svgIcon="translate"></mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="ChangeTranslate('en')">English</button>
+                    <button mat-menu-item (click)="ChangeTranslate('es')">Spanish</button>
+                </mat-menu>
+
+                <button mat-icon-button [matMenuTriggerFor]="colors">
+                    <mat-icon svgIcon="palette"></mat-icon>
+                </button>
+
+
+                <mat-menu #colors="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="dark">Dark</button>
+                    <button mat-menu-item [matMenuTriggerFor]="light">Light</button>
+                </mat-menu>
+
+                <mat-menu #dark="matMenu">
+                    <button type="button" mat-mini-fab class="btn btn-green"
+                        (click)="changeTheme('green-dark-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-blue"
+                        (click)="changeTheme('blue-dark-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-red"
+                        (click)="changeTheme('red-dark-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-yellow"
+                        (click)="changeTheme('purple-green')"></button>
+                </mat-menu>
+
+                <mat-menu #light="matMenu">
+                    <button type="button" mat-mini-fab class="btn btn-green"
+                        (click)="changeTheme('green-light-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-blue"
+                        (click)="changeTheme('blue-light-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-red"
+                        (click)="changeTheme('red-light-theme')"></button>
+                    <button type="button" mat-mini-fab class="btn btn-yellow"
+                        (click)="changeTheme('yellow-light-theme')"></button>
+                </mat-menu>
+
+
+                <!-- Icon by itself -->
+                <button mat-icon-button>
+                    <mat-icon svgIcon="power" *ngIf="config.shutdown" (click)="closeSession()"></mat-icon>
+                </button>
+            </mat-toolbar>
+
+
+            <div class="container-fluid">
+                <router-outlet> </router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

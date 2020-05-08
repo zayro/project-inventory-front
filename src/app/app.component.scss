@@ -1,0 +1,31 @@
+.sidenav-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.sidenav {
+    width: 100%;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-icon {
+    padding: 0 14px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.avatar {
+    margin-top: 15px;
+    margin-bottom: 15px
+}
