@@ -58,3 +58,15 @@ ng g m about --route=test -m app.module.ts
 
 ng g m about --route=test -m app.module.ts
 ng g c modules/auth/changePasswords -m modules/auth/auth.module.ts   --route=test
+
+# - variable declaration
+
+() - event binding
+
+[] - property binding
+
+[()] - two-way property binding
+
+{{ }} - interpolation
+
+* - structural directives

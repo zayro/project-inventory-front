@@ -1,1 +1,123 @@
-<p>entries works!</p>
+<div class="container-fluid">
+
+    <mat-card>
+
+        <form class="example-form"  #f="ngForm"  class="formi-container" [formGroup]="form">
+    
+    
+            <mat-form-field>
+                <mat-label>Tipo Pago</mat-label>
+                <mat-select formControlName="id_tipo_pago">
+                    <mat-option *ngFor="let data of tipo_pago" [value]="data.id">
+                        {{ data.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Tipo Comprobante</mat-label>
+                <mat-select formControlName="id_tipo_pago">
+                    <mat-option *ngFor="let data of tipo_comprobante" [value]="data.id">
+                        {{ data.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>            
+    
+            <mat-form-field class="example-form-field">
+                <mat-label>Buscar Cliente o Proveedor</mat-label>
+                <input matInput type="text" [(ngModel)]="id_tipo_tercero" formControlName="id_tipo_tercero">
+                <button type="button" mat-button *ngIf="form.get('id_tipo_tercero').value" matSuffix mat-icon-button aria-label="clear()"
+                    (click)="clear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+    
+            </mat-form-field>
+            <button (click)="http_tercero(id_tipo_tercero)">Search</button>
+    
+    
+    
+    
+    
+    
+            <table class="example-full-width" cellspacing="0" *ngIf="tercero">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Ex. San Francisco" value="{{tercero.nombre}}">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Telefono</mat-label>
+                            <input matInput placeholder="Ex. California" value="{{tercero.telefono}}">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Ex. California" value="{{tercero.email}}">
+                        </mat-form-field>
+                    </td>
+    
+                </tr>
+            </table>
+    
+    
+    
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input type="text" matInput placeholder="Buscar" #serial_value
+                    (keypress)="http_producto($event, serial_value.value)">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+    
+    
+    
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>serial</th>
+                        <th>producto</th>
+                        <th>cantidad</th>
+                        <th>valor</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of detalle; let i = index">
+                        <td>                     
+                            <p (click)="delete(data)">eliminar</p>
+                        </td>
+                        <td>{{data.serial}}</td>
+                        <td>{{data.nombre}}</td>
+                        <td><input type="number" class="form-control" value="{{data.cantidad}}" name="cantidad_{{i}}" id="cantidad_{{i}}" (keypress)="edit(data, 'cantidad', $event)"> </td>
+                        <td><input type="number" class="form-control"  value="{{data.precio_venta}}" name="precio_{{i}}" id="precio_{{i}}" (change)="edit(data, 'precio', $event)"> </td>
+                        <td>{{data.total}}
+                        <td>
+                    </tr>
+                </tbody>
+    
+            </table>
+
+            <p>
+                subtotal: {{subtotal | json}}
+            </p>
+            <p>
+                <input type="number" class="form-control" value="{{iva}}" name="iva" id="iva" [formControl]="iva" (change)="PutIva()">
+            </p>
+            <p>
+                <input type="number" class="form-control" value="{{descuento}}" name="descuento" id="descuento" [formControl]="descuento" (change)="PutDiscount()">
+            </p>
+            <p>
+                Total a Pagar: {{valorNeto}}
+            </p>   
+            
+
+    
+        </form>
+    
+    </mat-card>
+
+</div>

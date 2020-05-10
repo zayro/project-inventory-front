@@ -6,13 +6,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../material-module';
 
 /**
- * Modules Auth
+ * Components Auth
  */
 import { LoginComponent } from './login/login.component';
 import { TestComponent } from './test/test.component';
-
-
-
 
 @NgModule({
   declarations: [LoginComponent, TestComponent],
@@ -25,13 +22,7 @@ import { TestComponent } from './test/test.component';
     MaterialModule
   ],
   exports: [
-     // Form
-		FormsModule,
-    ReactiveFormsModule,
-     // Material
-     MaterialModule,
-    // Component
-    LoginComponent
+    // Component    
   ]
 })
 export class AuthModule { }
