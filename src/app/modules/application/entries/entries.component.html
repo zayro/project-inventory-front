@@ -26,7 +26,7 @@
             <mat-form-field class="example-form-field">
                 <mat-label>Buscar Cliente o Proveedor</mat-label>
                 <input matInput type="text" [(ngModel)]="id_tipo_tercero" formControlName="id_tipo_tercero">
-                <button type="button" mat-button *ngIf="form.get('id_tipo_tercero').value" matSuffix mat-icon-button aria-label="clear()"
+                <button type="button" mat-button *ngIf="form.get('id_tipo_tercero').value" matSuffix mat-icon-button aria-label="clear_search"
                     (click)="clear()">
                     <mat-icon>close</mat-icon>
                 </button>

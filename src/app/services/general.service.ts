@@ -16,7 +16,7 @@ import {
   FormBuilder
 } from '@angular/forms';
 
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -50,22 +50,22 @@ export class GeneralService {
   public StateService;
   public form: FormGroup;
   public formBuild: FormBuilder;
-  public environments = environment;  
- 
-constructor(
-  injector: Injector
-) {
- this.route = injector.get(ActivatedRoute);
- this.router = injector.get(Router);
- this.formBuild = injector.get(FormBuilder);
- this.snackBar = injector.get(MatSnackBar);
- this.sanitizer = injector.get(DomSanitizer);
- this.ref = injector.get(ChangeDetectorRef);
- this.api = injector.get(HttpData);
- this.api = injector.get(HttpData);
- this.jwt = injector.get(JwtService);
- this.StateService = injector.get(StateService);
- this.translate = injector.get(TranslateService);
-}
+  public environments = environment;
+
+  constructor(
+    injector: Injector
+  ) {
+    this.route = injector.get(ActivatedRoute);
+    this.router = injector.get(Router);
+    this.formBuild = injector.get(FormBuilder);
+    this.snackBar = injector.get(MatSnackBar);
+    this.sanitizer = injector.get(DomSanitizer);
+    this.ref = injector.get(ChangeDetectorRef);
+    this.api = injector.get(HttpData);
+    this.api = injector.get(HttpData);
+    this.jwt = injector.get(JwtService);
+    this.StateService = injector.get(StateService);
+    this.translate = injector.get(TranslateService);    
+  }
 
 }

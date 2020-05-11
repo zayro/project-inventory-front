@@ -26,6 +26,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 	 * INITIAL VAR
 	 */
 	public formSend: FormGroup;
+	public formRecovery: FormGroup;
 	public redirect: Boolean;
 	public loading: Boolean = false;
 
@@ -40,8 +41,12 @@ export class LoginComponent extends GeneralService implements OnInit {
 		this.table = this.environments.module.login.view;
 
 		this.formSend = this.formBuild.group({
-			email: ["", [Validators.required, Validators.email]],
+			user: ["", [Validators.required]],
 			password: ["", [Validators.required, Validators.minLength(6)]],
+		});
+
+		this.formRecovery = this.formBuild.group({
+			email: ["", [Validators.required]]
 		});
 
 		this.translate.setTranslate('es');
@@ -55,7 +60,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 	 * @param {string} action
 	 * @memberof LoginComponent
 	 */
-	openSnackBar(message: string, action: string) {
+	openSnackBar(message: string, action?: string) {
 		this.snackBar.open(message, action, {
 			duration: 2000,
 		});
@@ -68,12 +73,12 @@ export class LoginComponent extends GeneralService implements OnInit {
 	 */
 	menu(data: any) {
 		const select = {
-			from: this.table,
+			from: 'view_privileges',
 			fields: "*",
-			where: { email: data },
+			where: { username: data },
 		};
 
-		this.api.insert("/api/demo/select", select).subscribe(
+		this.api.insert("/api/access/select", select).subscribe(
 			(response: any) => {
 				if (response.status) {
 					
@@ -97,10 +102,10 @@ export class LoginComponent extends GeneralService implements OnInit {
 		const select = {
 			from: "view_information_users",
 			fields: "*",
-			where: { email: data },
+			where: { username: data },
 		};
 
-		this.api.insert("/api/demo/select", select).subscribe(
+		this.api.insert("/api/access/select", select).subscribe(
 			(response: any) => {
 				console.log("TCL: infoUser -> response", response);
 
@@ -131,11 +136,10 @@ export class LoginComponent extends GeneralService implements OnInit {
 				if (response.status) {
 					// almacenamos token
 					localStorage.setItem("token", response.token);
-
 					// consulta permisos del menu
-					this.menu(this.formSend.get("email").value);
+					this.menu(this.formSend.get("user").value);
 					// search information user
-					this.infoUser(this.formSend.get("email").value);
+					this.infoUser(this.formSend.get("user").value);
 					// redirecciona
 					this.router.navigate(["home"]);
 				}
@@ -148,9 +152,35 @@ export class LoginComponent extends GeneralService implements OnInit {
 			(err) => {
 				this.loading = false;
 				console.error("Error occured.", err);
+				this.openSnackBar(`Datos no validos para el accesso`);
 			}
 		);
 	}
+
+	recovery() {
+		this.loading = true;
+		// utiliza la peticion al api general
+		this.api.insert("/auth/recoveryPassword", this.formRecovery.value).subscribe(
+			(response: any) => {
+				console.log(response);
+				console.log(response.status);
+
+				if (response.status) {
+					this.router.navigate(["login"]);
+				}
+
+				// loading
+				this.loading = false;
+
+				this.openSnackBar(`Correo enviando`, "Cerrar");
+			},
+			(err) => {
+				this.loading = false;
+				console.error("Error occured.", err);
+				this.openSnackBar(`ocurrio un problema al enviar el correo`);
+			}
+		);
+	}	
 
 	/**
 	 *

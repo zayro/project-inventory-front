@@ -12,12 +12,13 @@ import { FormControl } from "@angular/forms";
 // import change theme
 import { OverlayContainer } from "@angular/cdk/overlay";
 
-
 import { GeneralService } from "./services/general.service";
 
-interface infos  {
-  menu: any[],
-  info: any
+import { UserInformation } from './interface/general.interface';
+
+interface infos {
+	menu: any[],
+	info: any
 }
 @Component({
 	selector: "app-root",
@@ -27,23 +28,26 @@ interface infos  {
 export class AppComponent extends GeneralService implements OnInit, OnChanges {
 	isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(
 		Breakpoints.Handset
-  );
-  
-  public active_icon;
-  mode = new FormControl('over');
-  public theme;
-  public config: any = {
-    infoUser: {},
-    shutdown: true,
-    menuLateral: []
-  };
+	);
 
-  user$ : any;
+	public active_icon;
+	mode = new FormControl('over');
+	public theme;
+	public config: any = {
+		infoUser: {},
+		shutdown: true,
+		menuLateral: []
+	};
 
-  languageList = [
-	{ code: "en", label: "English" },		
-	{ code: "es", label: "Espanol" },
-];
+	user$: UserInformation;
+	menu$: any;
+
+	languageList = [
+		{ code: "en", label: "English" },
+		{ code: "es", label: "Espanol" },
+	];
+
+	isToggled: boolean;
 
 	constructor(
 		@Inject(LOCALE_ID) protected localeId: string,
@@ -53,39 +57,47 @@ export class AppComponent extends GeneralService implements OnInit, OnChanges {
 		private injector: Injector,
 		private breakpointObserver: BreakpointObserver,
 		public overlayContainer: OverlayContainer
-		
+
 	) {
 
-	super(injector);
+		super(injector);
 
-	console.log(localeId, LOCALE_ID);
-	this.translate.setTranslate('es');
+		console.log(localeId, LOCALE_ID);
 
-	
+		this.translate.setTranslate('es');
+
+		this.isHandset.subscribe((resp) => console.log('isHandset', resp));
+
+		this.StateService.getUser().subscribe(message => {
+			console.log("AppComponent -> message", message)
+
+			//this.user$ = message.info;
+			this.menu$ = message;
+			this.user$ = message.info[0];
+		})
+	}
 
 
-    this.isHandset.subscribe((resp) => console.log(resp));
-    
-    this.StateService.getUser().subscribe(message => {
-      this.user$ = message;
-    })
-  }
+	toggleState() {
+		this.isToggled = !this.isToggled;
+        console.log("AppComponent -> toggleState -> this.isToggled", this.isToggled)
+		
+	}
 
+	changeTheme(color) {
+		this.theme = color;
+	}
 
-  changeTheme(color) {
-    this.theme = color;
-  }
-
-  ChangeTranslate(value){
+	ChangeTranslate(value) {
 		this.translate.setTranslate(value);
-  }
+	}
 
 
-  closeSession() {
-    localStorage.clear();
-    localStorage.removeItem('config');
-    this.router.navigate(['login']);
-  }
+	closeSession() {
+		localStorage.clear();
+		localStorage.removeItem('config');
+		this.router.navigate(['login']);
+	}
 
 	ngOnInit() {
 		console.log("component initialized");

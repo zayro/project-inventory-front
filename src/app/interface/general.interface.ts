@@ -18,5 +18,8 @@ export interface UpdateData {
   where: {id?: any;}
 }
 
-
+export interface UserInformation {
+    info: {first_name: string, last_name: string},
+    menu?: any[]
+}
 

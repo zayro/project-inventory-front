@@ -23,40 +23,49 @@ export class TranslateService {
 				list_record: "List record",
 			},
 			VALIDATION: {
-				field_required: "required field",
-				field_invalid: "invalid field",
+				field_required: "Campo Requerido",
+				field_invalid: "Campo Invalidado",
+			},
+			FORM: {
+				user: 'Digite usuario',
+				user_email: 'Digite email o usuario',
+				email: 'Digite email',
+				password: 'Digite clave',
+				new_pass: "Digite nueva clave",	
+				chechk_pass: "Digite verificacion de clave",	
+				full_name: 'Digite nombre completo',
+				first_name: "primer nombre",
+				second_name: "Digite segundo nombre",
+				first_surname: "Digite primer apellido",
+				second_surname: "Digite segundo apellido",
+				phone: "Digite telefono"			
+
 			},
 			BUTTON: {
 				login: "INGRESO",
 				send: "ENVIAR",
 				cancel: "CANCELAR",
-				edit: "edit",
-				add: "add",
-				delete: "delete",
-				clear: "clear",
+				edit: "editar",
+				add: "agregar",
+				delete: "eliminar",
+				clear: "limpiar",
 				clear_file: "clear file",
 			},
 			HOME: {
-				slogan: "ZAVWEB",
+				slogan: "GENTE UTIL (EMPRESAS)",
 				TITLE: "Hello Angular with ngx-translate!",
 				SELECT: "Change language",
 			},
 			MODULES: {
-				LOGIN: {
+				login: {
 					title: "Autenticacion",
 				},
 				config: {
 					title_tab1: "Configuracion",
 					title_tab2: "Cambiar Clave",
-					title_tab3: "Cambiar Menu",
+					title_tab3: "Recuperar Clave",
+					title_tab4: "Cambiar Menu",
 				},
-			},
-			FORM: {
-				first_name: "primer nombre",
-				second_name: "segundo nombre",
-				first_surname: "primer apellido",
-				second_surname: "segundo apellido",
-				phone: "telefono",
 			},
 			MENU: {
 				home: { title: "Inicio" },

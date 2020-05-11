@@ -29,3 +29,38 @@
     margin-top: 15px;
     margin-bottom: 15px
 }
+
+/**
+*  MAT BUTTONS
+*/
+
+.mat-green {
+    background-color: green;
+    color: #fff;
+}
+
+.mat-blue {
+    background-color: blue;
+    color: #fff;
+}
+
+.mat-yellow {
+    background-color: yellow;
+    color: #fff;
+}
+
+.mat-red {
+    background-color: red;
+    color: #fff;
+}
+
+/**
+*  MENU
+*/
+
+p.menu-lateral{
+    margin-top: 20px;
+    margin-left: 10px;
+    font-weight: bold;
+    text-transform: capitalize;
+}

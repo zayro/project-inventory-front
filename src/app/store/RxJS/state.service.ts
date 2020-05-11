@@ -18,9 +18,9 @@ export class StateService {
       this.user = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user')));
     } else {
       const conf: any = {
-        info: {first_name: 'marlon', last_name:'arias'},
+        info: [{ first_name: 'marlon', last_name: 'arias' }],
         menu: []
-       }  ;
+      };
       sessionStorage.setItem('user', JSON.stringify(conf));
       this.user = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user')));
       //this.user = new BehaviorSubject<any>('');
@@ -30,7 +30,7 @@ export class StateService {
     if (localStorage.getItem('config')) {
       this.config = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('config')));
     } else {
-      const conf = {shutdown: false, locale: 'es'};
+      const conf = { shutdown: false, locale: 'es' };
       localStorage.setItem('config', JSON.stringify(conf));
       this.config = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('config')));
 
@@ -44,11 +44,11 @@ export class StateService {
    * @param data
    */
 
-  setUser(key: any, value: any){
+  setUser(key: any, value: any) {
 
     let info: any = {};
 
-    if(sessionStorage.getItem('user')) {
+    if (sessionStorage.getItem('user')) {
 
       info = JSON.parse(sessionStorage.getItem('user'));
 
@@ -56,34 +56,33 @@ export class StateService {
 
     info[key] = value;
 
-    console.log('%c localStorage user' , 'background: #222; color: #bada55' , JSON.stringify(info));
-    console.log('%c setUser' , 'background: #222; color: #bada55' , info);
+    console.log('%c localStorage user', 'background: #222; color: #bada55', JSON.stringify(info));
+    console.log('%c setUser', 'background: #222; color: #bada55', info);
 
     sessionStorage.setItem('user', JSON.stringify(info));
 
-
-
     this.user.next(info);
     //this.info_user.complete();
+    
   }
 
-  editUser(key: any, value: any, newValue: any){
+  editUser(key: any, value: any, newValue: any) {
 
     let info: any = [];
 
-    if(sessionStorage.getItem('user')) {
+    if (sessionStorage.getItem('user')) {
 
       info = JSON.parse(sessionStorage.getItem('user'));
 
 
       const result = info.filter(user => {
-         if(user[key] == value) {
-           return  user[key] = newValue;
-         }
+        if (user[key] == value) {
+          return user[key] = newValue;
+        }
       });
 
-      console.log('%c localStorage user' , 'background: #222; color: #bada55' , JSON.stringify(info));
-      console.log('%c setUser' , 'background: #222; color: #bada55' , info);
+      console.log('%c localStorage user', 'background: #222; color: #bada55', JSON.stringify(info));
+      console.log('%c setUser', 'background: #222; color: #bada55', info);
 
       sessionStorage.setItem('user', JSON.stringify(info));
 
@@ -96,11 +95,11 @@ export class StateService {
 
   }
 
-  deleteUser(key: any, value: any){
+  deleteUser(key: any, value: any) {
 
     let info: any = [];
 
-    if(sessionStorage.getItem('user')) {
+    if (sessionStorage.getItem('user')) {
 
       info = JSON.parse(sessionStorage.getItem('user'));
 
@@ -109,7 +108,7 @@ export class StateService {
 
       //  delete info[0][key];
 
-      console.log('%c deleteUser' , 'background: #222; color: #bada55' , result);
+      console.log('%c deleteUser', 'background: #222; color: #bada55', result);
 
       sessionStorage.setItem('user', JSON.stringify(result));
 
@@ -122,7 +121,7 @@ export class StateService {
 
   }
 
-  getUser(){
+  getUser() {
     //return this.user.subscribe(val => console.log(val));
     return this.user.asObservable();
   }
@@ -130,14 +129,14 @@ export class StateService {
   clearUser() {
     sessionStorage.clear()
     this.user.next();
-}
+  }
 
 
 
-/**
- * Configuration
- * @param data
- */
+  /**
+   * Configuration
+   * @param data
+   */
   setConfig(data: any) {
 
     sessionStorage.setItem('userConfig', JSON.stringify(data));
@@ -145,7 +144,7 @@ export class StateService {
     //this.info_user.complete();
   }
 
-  getConfig(){
+  getConfig() {
     //return this.user.subscribe(val => console.log(val));
     return this.config.asObservable();
   }
@@ -153,7 +152,7 @@ export class StateService {
 
   ClearConfig() {
     this.config.next();
-}
+  }
 
 
 }
