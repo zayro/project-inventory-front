@@ -34,7 +34,7 @@
             <mat-nav-list>
                 
                 <a  mat-subheader mat-list-item *ngFor="let item of menu$.menu" routerLink="{{item.link}}" (click)="sidenav.toggle()"> 
-                    <mat-icon aria-hidden="false" aria-label="Example home icon">{{item.icon}}</mat-icon>  
+                    <mat-icon aria-hidden="false" aria-label="icon menu">{{item.icon}}</mat-icon>  
 
                     <p class="menu-lateral">                        
                         {{item.menu }}

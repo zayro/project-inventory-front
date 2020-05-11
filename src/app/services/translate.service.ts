@@ -52,7 +52,7 @@ export class TranslateService {
 				clear_file: "clear file",
 			},
 			HOME: {
-				slogan: "GENTE UTIL (EMPRESAS)",
+				slogan: "INVENTARIO (EMPRESAS)",
 				TITLE: "Hello Angular with ngx-translate!",
 				SELECT: "Change language",
 			},

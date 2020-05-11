@@ -2,9 +2,9 @@
 
     <mat-card>
 
-        <form class="example-form"  #f="ngForm"  class="formi-container" [formGroup]="form">
-    
-    
+        <form class="example-form" #f="ngForm" class="formi-container" [formGroup]="form">
+
+
             <mat-form-field>
                 <mat-label>Tipo Pago</mat-label>
                 <mat-select formControlName="id_tipo_pago">
@@ -13,7 +13,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-    
+
             <mat-form-field>
                 <mat-label>Tipo Comprobante</mat-label>
                 <mat-select formControlName="id_tipo_pago">
@@ -21,25 +21,31 @@
                         {{ data.nombre }}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>            
-    
-            <mat-form-field class="example-form-field">
-                <mat-label>Buscar Cliente o Proveedor</mat-label>
-                <input matInput type="text" [(ngModel)]="id_tipo_tercero" formControlName="id_tipo_tercero">
-                <button type="button" mat-button *ngIf="form.get('id_tipo_tercero').value" matSuffix mat-icon-button aria-label="clear_search"
-                    (click)="clear()">
-                    <mat-icon>close</mat-icon>
-                </button>
-    
             </mat-form-field>
-            <button (click)="http_tercero(id_tipo_tercero)">Search</button>
-    
-    
-    
-    
-    
-    
-            <table class="example-full-width" cellspacing="0" *ngIf="tercero">
+
+
+
+            <div class="row">
+
+                <div class="col-md-10 col-sm-12 example-full-field">
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Buscar Cliente o Proveedor</mat-label>
+                    <input matInput type="text" [(ngModel)]="id_tipo_tercero" formControlName="id_tipo_tercero">
+                    <button type="button" mat-button *ngIf="form.get('id_tipo_tercero').value" matSuffix mat-icon-button
+                        aria-label="clear_search" (click)="clear()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <button mat-raised-button color="primary" (click)="http_tercero(id_tipo_tercero)">Search</button>
+                </div>
+
+            </div>
+
+
+            <table class="table" cellspacing="0" *ngIf="tercero">
                 <tr>
                     <td>
                         <mat-form-field class="example-full-width">
@@ -59,22 +65,22 @@
                             <input matInput placeholder="Ex. California" value="{{tercero.email}}">
                         </mat-form-field>
                     </td>
-    
+
                 </tr>
             </table>
-    
-    
-    
+
+
+
             <mat-form-field>
                 <mat-label>Buscar</mat-label>
                 <input type="text" matInput placeholder="Buscar" #serial_value
                     (keypress)="http_producto($event, serial_value.value)">
                 <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
-    
-    
-    
-            <table>
+
+
+
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th></th>
@@ -87,37 +93,58 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of detalle; let i = index">
-                        <td>                     
-                            <p (click)="delete(data)">eliminar</p>
+                        <td>
+                            <p (click)="delete(data)">
+                                <mat-icon aria-hidden="false" aria-label="icon menu">delete</mat-icon>
+                            </p>
                         </td>
                         <td>{{data.serial}}</td>
                         <td>{{data.nombre}}</td>
-                        <td><input type="number" class="form-control" value="{{data.cantidad}}" name="cantidad_{{i}}" id="cantidad_{{i}}" (keypress)="edit(data, 'cantidad', $event)"> </td>
-                        <td><input type="number" class="form-control"  value="{{data.precio_venta}}" name="precio_{{i}}" id="precio_{{i}}" (change)="edit(data, 'precio', $event)"> </td>
-                        <td>{{data.total}}
-                        <td>
+                        <td><input type="number" class="form-control" value="{{data.cantidad}}" name="cantidad_{{i}}"
+                                id="cantidad_{{i}}" (keypress)="edit(data, 'cantidad', $event)"> </td>
+                        <td><input type="number" class="form-control" value="{{data.precio_venta}}" name="precio_{{i}}"
+                                id="precio_{{i}}" (change)="edit(data, 'precio', $event)"> </td>
+                        <td>{{data.total}} </td>
                     </tr>
                 </tbody>
-    
+
             </table>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Iva</mat-label>
+                            <input matInput type="number" value="{{iva}}" name="iva" id="iva" (change)="PutIva()"
+                                formControlName="iva">
+                        </mat-form-field>
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Descuento</mat-label>
+                            <input matInput type="number" value="{{descuento}}" name="descuento" id="descuento"
+                                (change)="PutDiscount()" formControlName="descuento">
+                        </mat-form-field>
+        
+                    </p>
+                </div>
+            </div>
 
             <p>
                 subtotal: {{subtotal | json}}
             </p>
-            <p>
-                <input type="number" class="form-control" value="{{iva}}" name="iva" id="iva" [formControl]="iva" (change)="PutIva()">
-            </p>
-            <p>
-                <input type="number" class="form-control" value="{{descuento}}" name="descuento" id="descuento" [formControl]="descuento" (change)="PutDiscount()">
-            </p>
+
+
             <p>
                 Total a Pagar: {{valorNeto}}
-            </p>   
-            
+            </p>
 
-    
+
+
         </form>
-    
+
     </mat-card>
 
 </div>

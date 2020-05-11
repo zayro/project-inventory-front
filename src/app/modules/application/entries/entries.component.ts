@@ -73,7 +73,10 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
     this.form = this.formBuild.group({
       id_tipo_pago: ["", [Validators.required]],
-      id_tipo_tercero: ["", [Validators.required]]
+      id_tipo_tercero: ["", [Validators.required]],
+      iva: ["", [Validators.required]],
+      descuento: ["", [Validators.required]]
+
 
     });
 
@@ -142,7 +145,8 @@ export class EntriesComponent extends GeneralService implements OnInit {
     //console.log(this.detalle.reduce((a, b) => ({x: a.total + b.total})));
     
     this.subtotal = this.detalle.reduce((a, b) => (a.total + b.total));
-    this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
+    //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
     this.valorNeto = this.valorNeto - this.descuento.value;
 
 
@@ -159,13 +163,19 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   PutIva(){   
 
-    this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100))
+    console.log('update iva', this.form.get("iva").value);
+
+    //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100))
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))   
 
   }
 
-  PutDiscount(){   
+  PutDiscount(){ 
 
-    this.valorNeto = this.valorNeto - this.descuento.value;
+    console.log('update PutDiscount', this.form.get("descuento").value);
+
+    //this.valorNeto = this.valorNeto - this.descuento.value;
+    this.valorNeto = this.valorNeto - this.form.get("descuento").value;
 
   }
 
