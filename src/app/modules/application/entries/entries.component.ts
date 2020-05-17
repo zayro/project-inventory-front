@@ -34,6 +34,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
   public loading: Boolean = false;
   public mySet = new Set()
   public myMap = new Map()
+  public tableP;
 
   /**
    * Form
@@ -45,6 +46,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
   tercero: any[];
 
   subtotal;
+  BuscarProducto = new FormControl('');
   descuento = new FormControl('0');
   iva = new FormControl('0');
   total;
@@ -52,14 +54,9 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   private table: string;
 
-  // @ts-ignore
+  displayedColumns: string[] = ['action', 'serial', 'nombre', 'precio_venta', 'cantidad', 'total'];
 
-  detallen = {
-    serial: 'new',
-    nombre: 'ewn',
-    cantidad: 0,
-    valor: 0
-  };
+  // @ts-ignore
 
   detalle = [];
 
@@ -74,8 +71,8 @@ export class EntriesComponent extends GeneralService implements OnInit {
     this.form = this.formBuild.group({
       id_tipo_pago: ["", [Validators.required]],
       id_tipo_tercero: ["", [Validators.required]],
-      iva: ["", [Validators.required]],
-      descuento: ["", [Validators.required]]
+      iva: ["0", [Validators.required]],
+      descuento: ["0", [Validators.required]]
 
 
     });
@@ -126,14 +123,21 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   edit(data, field, event){
 
+    /*
+    console.log(data)
     console.log(event.target.value)
     console.log(field)
+    */
 
 
     const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));
+    
+    console.log("EntriesComponent -> edit -> objIndex", objIndex)
 
     this.detalle[objIndex][field] = event.target.value;
     this.detalle[objIndex].total =  this.detalle[objIndex].cantidad  * this.detalle[objIndex].precio_venta;
+
+    console.log("EntriesComponent -> edit -> detalle", this.detalle)
 
     /*
     console.log(this.detalle.reduce(function(valorAnterior, valorActual, indice, vector){
@@ -143,11 +147,40 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
 
     //console.log(this.detalle.reduce((a, b) => ({x: a.total + b.total})));
-    
-    this.subtotal = this.detalle.reduce((a, b) => (a.total + b.total));
     //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
-    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
-    this.valorNeto = this.valorNeto - this.descuento.value;
+
+    if(this.detalle.length == 1){   
+      
+      this.subtotal = this.detalle[objIndex].total;
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    } else {
+
+      this.subtotal = this.detalle.reduce((a, b) =>{     
+        return a.total + b.total
+      }
+      );
+
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    }
+    
+
+
+
+    console.log("EntriesComponent -> edit -> this.subtotal ", this.subtotal )
+
+    
+  
+
+
+      
+
+
+
+    
 
 
     /*
@@ -347,8 +380,6 @@ export class EntriesComponent extends GeneralService implements OnInit {
               this.add(dataProduct);
 
               console.log('cantidad de articulos', this.detalle.length);
-
-
 
 
             }

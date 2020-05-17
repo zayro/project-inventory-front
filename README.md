@@ -58,6 +58,9 @@ ng g m about --route=test -m app.module.ts
 
 ng g m about --route=test -m app.module.ts
 ng g c modules/auth/changePasswords -m modules/auth/auth.module.ts   --route=test
+ng g c modules/application/product -m modules/application/application.module.ts
+ng g c modules/application/warehouse -m modules/application/application.module.ts
+
 
 # - variable declaration
 
@@ -70,3 +73,5 @@ ng g c modules/auth/changePasswords -m modules/auth/auth.module.ts   --route=tes
 {{ }} - interpolation
 
 * - structural directives
+
+ng serve --host 0.0.0.0

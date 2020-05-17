@@ -7,14 +7,15 @@ export const environment = {
   baseUrl: '/',
   secret_route: 'secret',
   api: 'http://127.0.0.1:8000',
+  db: 'inventario',
+  prefix: 'unsafe',
   plugin: {
     main: 'assets/i18n/',
     datable: 'assets/i18n/datable/'
   },
   main: '/api',
   user: '/api/user',
-  db: '/api/demo',
-  select: {
+    select: {
     general: '/api/demo/',
     filtro: '/api/demo/filtro',
     all: '/api/demo/all',

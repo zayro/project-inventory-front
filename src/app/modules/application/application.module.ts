@@ -8,13 +8,15 @@ import { ReportsComponent } from './reports/reports.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {MaterialModule} from '../../material-module';
+import { ProductComponent } from './product/product.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
 
 /**
  * Components Aplication
  */
 
 @NgModule({
-  declarations: [ HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent],
+  declarations: [ HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent, ProductComponent, WarehouseComponent],
   imports: [
     CommonModule,
     // Form
