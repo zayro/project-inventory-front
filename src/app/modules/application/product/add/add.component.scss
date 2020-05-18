@@ -1,0 +1,81 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 8px;
+  }
+
+  .formi-container > * {
+    width: 100%;
+  }
+  
+
+  
+
+  /**
+  * Table
+  */  
+
+  th{
+    text-transform: capitalize;
+  }
+
+  /**
+  * Input
+  */
+
+  input.product {
+    display: block;
+    width: 90%;
+    border: none;
+    border-radius: 0; 
+    border-bottom: 1px solid;
+
+
+    transition: .3s ease;
+    &:valid {
+      // border-bottom-color: rgba(white, .5);
+      ~label {
+        top: 0;
+        color: rgba(white, .5);
+      }
+    }
+
+  }
+  
+
+
+
+  /**
+  * Material Edit
+  */ 
+ 
+  .mat-form-field-infix {
+    width: 100%;
+  }
+
+
+
+  @media (max-width: 600px) {
+
+    /*
+    .container-fluid {
+      display: none;
+      visibility: hidden;
+    }
+    */
+    .container-fluid-table {
+      width: 600px;
+      overflow: auto;
+    }
+    table > * {
+      font-size: 8px;
+    }
+  }

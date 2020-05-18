@@ -5,9 +5,13 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 
+
 import {
   ActivatedRoute,
-  Router
+  Router,
+  NavigationStart,
+  NavigationError,
+  NavigationEnd
 } from '@angular/router';
 
 

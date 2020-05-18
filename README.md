@@ -61,6 +61,10 @@ ng g c modules/auth/changePasswords -m modules/auth/auth.module.ts   --route=tes
 ng g c modules/application/product -m modules/application/application.module.ts
 ng g c modules/application/warehouse -m modules/application/application.module.ts
 
+ng g c modules/application/product/add -m modules/application/application.module.ts
+ng g c modules/application/product/edit -m modules/application/application.module.ts
+ng g c modules/application/product/delete -m modules/application/application.module.ts
+
 
 # - variable declaration
 
