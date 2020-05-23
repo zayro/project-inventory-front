@@ -44,33 +44,35 @@ export class ProductComponent extends GeneralService implements AfterViewInit, O
 
   public paramSubscription: boolean;
 
-    // ******* Init Default config variable Component *******
-    form: FormGroup;
-    table: string;
-    idTable: string;
-    idValue: any;
-    table_datable: any;
-    lang: string;
-    actionSent: string;
-  
+  // ******* Init Default config variable Component *******
+  form: FormGroup;
+  table: string;
+  idTable: string;
+  idValue: any;
+  table_datable: any;
+  lang: string;
+  actionSent: string;
 
-  
+
+
   constructor(
     injector: Injector,
   ) {
     super(injector);
     this.paramSubscription = true;
 
-    this.route.params.subscribe(res => console.log(res));
+    this.route.params.subscribe(res => console.log('this.route.params.subscribe', res));
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Show loading indicator
+        console.log('NavigationStart', event);
       }
 
       if (event instanceof NavigationEnd) {
         // Hide loading indicator
-        this.paramSubscription = this.router.isActive('/table-export', true);
+        this.paramSubscription = this.router.isActive('/product', true);
+        console.log("ProductComponent -> this.router.isActive('/product', true);", this.router.isActive('/product', true))
       }
 
       if (event instanceof NavigationError) {
@@ -80,31 +82,42 @@ export class ProductComponent extends GeneralService implements AfterViewInit, O
       }
     });
 
-        // @ts-ignore
-        this.table_datable = $('#TableDb').DataTable();
+    // @ts-ignore
+    this.table_datable = $('#TableDb').DataTable();
 
   }
 
-  dtOptions: any = {};
-  public dialogo = {};
-  message = '';
-  // dtOptions: DataTables.Settings = {};
-
-  someClickHandler(info: any): void {
+  RedirectAdd(): void {
     // this.message = info.id + ' - ' + info.firstName;
-    console.log(info);
-    this.router.navigate(['producto/edit/' + info.id_producto]);
+    //console.log(info);
+    this.router.navigate(['product/add/']);
+  }
+
+  RedirectEdit(info: any): void {
+    // this.message = info.id + ' - ' + info.firstName;
+    //console.log(info);
+    this.router.navigate(['product/edit/' + info.id]);
   }
 
   // Must be declared as 'any', not as 'DataTables.Settings'
 
   getData() {
+
+    let redirect = () => {
+
+        this.RedirectAdd();
+
+      }
+
+
+
     this.table_datable = $('#TableDb').DataTable({
       pagingType: 'full_numbers',
       paging: true,
       info: true,
       ordering: true,
       searching: true,
+      responsive: false,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
       pageLength: 5,
       ajax: {
@@ -123,6 +136,7 @@ export class ProductComponent extends GeneralService implements AfterViewInit, O
       columns: [
         { data: 'id' },
         { data: 'nombre' },
+        { data: 'serial' },
         {
           visible: true,
           searchable: false,
@@ -135,22 +149,53 @@ export class ProductComponent extends GeneralService implements AfterViewInit, O
           }
         }
       ],
-      responsive: true,
+     
       rowCallback: (row: Node, data: any, index: number) => {
 
         const self = this;
         // Unbind first in order to avoid any duplicate handler
         // $('td', row).unbind('click');
-        $('i.fa-edit', row).bind('click', () => self.someClickHandler(data));
-        // $('button.btn', row).bind('click', () => self.someClickHandler(data));
+        $('i.fa-edit', row).bind('click', () => self.RedirectEdit(data));
+        // $('button.btn', row).bind('click', () => self.Redirect(data));
         return row;
       },
 
       // Declare the use of the extension in the dom parameter
       // dom: 'frtipBL',
-      dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
+      //dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
+      dom:    "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
       // Configure the buttons
-      buttons: ['columnsToggle', 'copy', 'print', 'excel']
+      buttons:  [
+        {
+          extend: 'copy',
+        },
+        {
+          extend: 'excel',
+        },
+        {
+          extend: 'print',
+        },
+        {
+          extend: 'pdf',
+        },      
+        {
+          extend: 'csv',
+        },   
+        {
+          extend: 'columnsToggle',
+        },        
+        {
+          text: '<a><i  class="fa fa-plus"></i><a/> Add',
+          className: "addNewRecord",
+          action: function (dt) {          
+            redirect();
+            console.log('My custom button!');            
+          }
+        },
+      ],  
+
     });
   }
 

@@ -164,9 +164,28 @@ Form
  * Elements DataTable
  */
 
-table.dataTable tbody th,
-table.dataTable tbody td {
-    padding: 0px;
+@media (max-width: 600px) {
+
+    /*
+    .container-fluid {
+      display: none;
+      visibility: hidden;
+    }
+    */
+
+    table.dataTable tbody th,
+    table.dataTable tbody td {
+        padding: 0px;
+    }
+
+    .container-fluid-table {
+        width: 600px;
+        overflow: auto;
+    }
+
+    table>* {
+        font-size: 8px;
+    }
 }
 
 div.customize {

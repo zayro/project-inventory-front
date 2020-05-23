@@ -26,9 +26,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // Import your AvatarModule
 import { AvatarModule } from "ngx-avatar";
 
-import * as $ from "jquery";
+import  "jquery";
 
-import * as bootstrap from "bootstrap";
+import "bootstrap";
+
+import 'datatables.net';
 
 // import Services
 import * as service from "./services/index";

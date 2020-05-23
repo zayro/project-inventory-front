@@ -58,9 +58,21 @@ ng g m about --route=test -m app.module.ts
 
 ng g m about --route=test -m app.module.ts
 ng g c modules/auth/changePasswords -m modules/auth/auth.module.ts   --route=test
-ng g c modules/application/product -m modules/application/application.module.ts
+
 ng g c modules/application/warehouse -m modules/application/application.module.ts
 
+
+ng g c modules/application/customer -m modules/application/application.module.ts
+ng g c modules/application/customer/add-customer -m modules/application/application.module.ts
+ng g c modules/application/customer/edit-customer -m modules/application/application.module.ts
+
+ng g c modules/application/supplier -m modules/application/application.module.ts
+ng g c modules/application/supplier/add-supplier -m modules/application/application.module.ts
+ng g c modules/application/supplier/edit-supplier -m modules/application/application.module.ts
+
+
+
+ng g c modules/application/product -m modules/application/application.module.ts
 ng g c modules/application/product/add -m modules/application/application.module.ts
 ng g c modules/application/product/edit -m modules/application/application.module.ts
 ng g c modules/application/product/delete -m modules/application/application.module.ts

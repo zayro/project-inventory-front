@@ -1,9 +1,13 @@
-<mat-card>
-    <table id="TableDb" class="table table-striped  responsive-resize" width="100%">
+
+<div [className]="paramSubscription ? '' : 'hidden'">
+<mat-card >
+
+    <table id="TableDb" class="table table-striped" width="100%" >
         <thead>
             <tr>
                 <td>ID</td>
                 <td>NAME</td>
+                <td>SERIAL</td>
                 <td>ACTION</td>
             </tr>
         </thead>
@@ -11,6 +15,9 @@
     </table>
 
 </mat-card>
+
+    
+</div>
 
 <div>
     <router-outlet> </router-outlet>
