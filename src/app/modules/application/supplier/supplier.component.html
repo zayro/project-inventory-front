@@ -1,1 +1,26 @@
-<p>supplier works!</p>
+
+<div [className]="paramSubscription ? '' : 'hidden'">
+    <mat-card >
+    
+        <table id="TableDbProveedor" class="table table-striped" width="100%" >
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td>EMAIL</td>
+                    <td>TELEFONO</td>
+                    <td>ACTION</td>
+                    
+                </tr>
+            </thead>
+    
+        </table>
+    
+    </mat-card>
+    
+        
+    </div>
+    
+    <div>
+        <router-outlet> </router-outlet>
+    </div>
