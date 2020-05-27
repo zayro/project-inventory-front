@@ -38,10 +38,6 @@ public myMap = new Map()
   /**
    * Var about  Http Response
    */
-  tipo_categoria;
-  tipo_bodega;
-  tipo_unidad;
-
 private table;
 private tableId;
 
@@ -60,6 +56,7 @@ private tableId;
       identificacion: ["0000", [Validators.required]],
       email: ["0000", [Validators.required]],
       telefono: ["0", [Validators.required]],
+      id_tipo_tercero: ["2", [Validators.required]],
     });
   }
 
@@ -91,6 +88,12 @@ private tableId;
         (response) => {
           this.loading = false;
 
+          if(response.success){
+
+            this.alert("Proceso exitoso  ", "Restornar a la lista", "success");            
+            this.router.navigate(['supplier/']);
+
+          }
 
 
         },

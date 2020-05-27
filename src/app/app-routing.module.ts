@@ -34,7 +34,8 @@ import { EditCustomerComponent } from "./modules/application/customer/edit-custo
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "home", component: HomeComponent, canActivate: [AuthguardGuard] },
-	{ path: "entries", component: EntriesComponent },
+	{ path: "purchase", component: EntriesComponent },
+	{ path: "sale", component: EntriesComponent },
 	{ path: "warehouse", component: WarehouseComponent },
 	{
 		path: "supplier", component: SupplierComponent,
@@ -49,10 +50,6 @@ const routes: Routes = [
 				component: EditSupplierComponent,
 				data: { title: 'Editar', action: 'update' }
 			},
-			{
-				path: 'delete/:id', // la ruta real es movimientos/nuevo
-				component: ProductComponent
-			},
 			{ path: '', redirectTo: '', pathMatch: 'full' }
 		]
 	},
@@ -66,7 +63,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'edit/:id', // la ruta real es movimientos/editar
-				component: EditComponent,
+				component: EditCustomerComponent,
 				data: { title: 'Editar', action: 'update' }
 			},
 			{

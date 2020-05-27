@@ -32,6 +32,12 @@ import "bootstrap";
 
 import 'datatables.net';
 
+import 'sweetalert';
+
+import 'select2';     
+
+import 'selectize';     
+
 // import Services
 import * as service from "./services/index";
 

@@ -26,9 +26,6 @@ import {
 } from '@angular/router';
 
 
-//import swal from 'sweetalert';
-import Swal from 'sweetalert2';
-
 // import Services
 import * as service from "../../../services/index";
 import { GeneralService } from "../../../services/general.service";
@@ -43,14 +40,25 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
 
   public paramSubscription: boolean;
 
+
   // ******* Init Default config variable Component *******
   form: FormGroup;
-  table: string;
   idTable: string;
   idValue: any;
   table_datable: any;
   lang: string;
   actionSent: string;
+
+
+  
+  /**
+   * Var about Edit
+   */
+  info;
+  table = 'tercero';
+  tableId = 'id';
+  tableIdValue;
+  loading;
 
 
 
@@ -71,6 +79,11 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
       if (event instanceof NavigationEnd) {
         // Hide loading indicator
         this.paramSubscription = this.router.isActive('/supplier', true);
+
+        if(this.paramSubscription ){
+          this.table_datable.ajax.reload();
+        }
+         
         console.log("ProductComponent -> this.router.isActive('/product', true);", this.router.isActive('/supplier', true))
       }
 
@@ -103,12 +116,8 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
   getData() {
 
     let redirect = () => {
-
-        this.RedirectAdd();
-
-      }
-
-
+      this.RedirectAdd();
+    }
 
     this.table_datable = $('#TableDbProveedor').DataTable({
       pagingType: 'full_numbers',
@@ -131,12 +140,12 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
           }
         }
       },
-      order: [[1, 'desc']],
+      order: [[0, 'desc']],
       columns: [
         { data: 'id' },
         { data: 'nombre' },
         { data: 'email' },
-        { data: 'email' },
+        { data: 'telefono' },
         {
           visible: true,
           searchable: false,
@@ -156,6 +165,7 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
         // Unbind first in order to avoid any duplicate handler
         // $('td', row).unbind('click');
         $('i.fa-edit', row).bind('click', () => self.RedirectEdit(data));
+        $('i.fa-close', row).bind('click', () => self.destroyData(data.id));
         // $('button.btn', row).bind('click', () => self.Redirect(data));
         return row;
       },
@@ -170,25 +180,32 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
       buttons:  [
         {
           extend: 'copy',
+          className: 'btn btn-outline-secondary',
         },
         {
           extend: 'excel',
+          className: 'btn btn-outline-secondary',
         },
         {
           extend: 'print',
+          className: 'btn btn-outline-secondary',
         },
         {
           extend: 'pdf',
+          className: 'btn btn-outline-secondary',
         },      
         {
           extend: 'csv',
-        },   
+          className: 'btn btn-outline-secondary',
+        }, 
+        /*  
         {
           extend: 'columnsToggle',
-        },        
+        },  
+        */      
         {
           text: '<a><i  class="fa fa-plus"></i><a/> Add',
-          className: "addNewRecord",
+          className: 'btn btn-default btn-xs',
           action: function (dt) {          
             redirect();
             console.log('My custom button!');            
@@ -199,15 +216,107 @@ export class SupplierComponent extends GeneralService implements AfterViewInit, 
     });
   }
 
-  ngOnInit(): void {
-    console.log('INGRESO TABLE EXPORT');
+  destroyData(id) {
 
+
+    this.alert({
+      title: "Esta seguro de eliminar el registro ?",
+      text: "una vez eliminado no podra recuperarlo!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+
+        this.loading = true;
+        // utiliza la peticion al api general
+        //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
+        this.api
+          .delete(
+            `/${this.environments.prefix}/${this.environments.db}/destroy/${this.table}/${this.tableId}/${id}`
+          )
+          .subscribe(
+            (response) => {
+              this.loading = false;
+
+              if(response.success){
+
+                this.table_datable.ajax.reload();                       
+    
+              }
+    
+    
+            },
+            err => {
+              this.loading = false;
+              console.error("Error occured.", err);
+              this.snackBar.open(
+                `Ocurrio un Error: http_lptipoausentismo`,
+                "Cerrar",
+                {
+                  duration: 3000
+                }
+              );
+            }
+          );
+ 
+      } else {
+       console.log('not delete row');
+      }
+    });
+
+
+
+  }
+
+  hiddenData(id) {
+    this.loading = true;
+
+
+    const send = {
+      "update": this.table,
+      "set": this.form.value,
+      "where": { "id": this.tableIdValue }
+    };
+
+    this.api
+      .update(
+        `/unsafe/inventario/edit/${id}`
+      )
+      .subscribe(
+        (response) => {
+          this.loading = false;
+
+
+        },
+        err => {
+          this.loading = false;
+          console.error("Error occured.", err);
+          this.snackBar.open(
+            `Ocurrio un Error: http_lptipoausentismo`,
+            "Cerrar",
+            {
+              duration: 3000
+            }
+          );
+        }
+      );
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit');
     this.getData();
+   
   }
 
   ngAfterViewInit(): void {
 
+    console.log('ngAfterViewInit');
+
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+   }
 }

@@ -36,6 +36,8 @@ import { StateService } from '../store/RxJS/state.service';
 
 import { TranslateService } from './translate.service';
 
+import swal from 'sweetalert';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +54,7 @@ export class GeneralService {
   public api;
   public jwt;
   public StateService;
+  public alert;
   public form: FormGroup;
   public formBuild: FormBuilder;
   public environments = environment;
@@ -59,6 +62,7 @@ export class GeneralService {
   constructor(
     injector: Injector
   ) {
+    this.alert = swal;
     this.route = injector.get(ActivatedRoute);
     this.router = injector.get(Router);
     this.formBuild = injector.get(FormBuilder);

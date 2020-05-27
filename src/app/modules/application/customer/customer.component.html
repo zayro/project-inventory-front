@@ -1,1 +1,29 @@
-<p>customer works!</p>
+
+<div [className]="paramSubscription ? '' : 'hidden'">
+    <mat-card>
+
+        <mat-card-title>Cliente</mat-card-title>
+
+        <hr>
+    
+        <table id="TableDbCustomer" class="table table-striped" width="100%" >
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td>EMAIL</td>
+                    <td>TELEFONO</td>
+                    <td>ACTION</td>
+                    
+                </tr>
+            </thead>
+    
+        </table>
+    
+    </mat-card>
+
+    </div>
+    
+    <div>
+        <router-outlet> </router-outlet>
+    </div>

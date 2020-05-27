@@ -31,24 +31,21 @@ export class EditSupplierComponent extends GeneralService implements OnInit {
   public form: FormGroup;
   public redirect: Boolean;
   public loading: Boolean = false;
-  public mySet = new Set()
-  public myMap = new Map()
+
 
 
   /**
    * Var about  Http Response
    */
-  tipo_categoria;
-  tipo_bodega;
-  tipo_unidad;
+
 
 
   /**
    * Var about Edit
    */
   info;
-  table;
-  tableId;
+  table = 'tercero';
+  tableId = 'id';
   tableIdValue;
 
 
@@ -57,24 +54,22 @@ export class EditSupplierComponent extends GeneralService implements OnInit {
   ) {
     super(injector);
 
-    this.table = 'supplier';
-    this.tableId = 'id';
-
     this.form = this.formBuild.group({
-      nombre: ["", [Validators.required]],
+      nombre: {value: null, disabled: true},
+      identificacion: {value: null, disabled: true},
       email: ["0000", [Validators.required]],
       telefono: ["0", [Validators.required]],
-      identificacion: ["0", [Validators.required]],
+      
     });
   }
 
-  http_producto() {
+  http_find(id) {
     this.loading = true;
     // utiliza la peticion al api general
     //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
     this.api
       .select(
-        `/unsafe/inventario/filters/view_proveedor/id/1`
+        `/unsafe/inventario/filters/view_proveedor/id/${id}`
       )
       .subscribe(
         (response) => {
@@ -125,9 +120,14 @@ export class EditSupplierComponent extends GeneralService implements OnInit {
       )
       .subscribe(
         (response) => {
+
           this.loading = false;
 
+          if(response.success){
 
+            this.alert("Proceso exitoso  ", "Restornar a la lista", "success");            
+            this.router.navigate(['supplier/']);
+          }
 
         },
         err => {
@@ -147,12 +147,17 @@ export class EditSupplierComponent extends GeneralService implements OnInit {
   Redirect(): void {
     // this.message = info.id + ' - ' + info.firstName;
     //console.log(info);
-    this.router.navigate(['product/']);
+    this.router.navigate(['supplier/']);
   }
 
 
   ngOnInit(): void {
-    this.http_producto();
+    this.route.params.subscribe(params => {
+      this.tableIdValue = +params['id']; // (+) converts string 'id' to a number
+
+      // In a real app: dispatch action to load the details here.
+   });
+    this.http_find(this.tableIdValue);
    }
 
 

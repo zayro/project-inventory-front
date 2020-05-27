@@ -14,9 +14,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 // import Services
-import * as service from "../../../services/index";
 import { GeneralService } from "../../../services/general.service";
-import { IvyParser } from '@angular/compiler';
+
 
 
 @Component({
@@ -60,6 +59,8 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   detalle = [];
 
+  
+
 
   constructor(
     injector: Injector
@@ -68,16 +69,21 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
     this.table = this.environments.module.login.view;
 
+    console.log('environments', this.environments);
+
     this.form = this.formBuild.group({
-      id_tipo_pago: ["", [Validators.required]],
-      id_tipo_tercero: ["", [Validators.required]],
-      iva: ["0", [Validators.required]],
-      descuento: ["0", [Validators.required]]
-
-
+      descripcion: [null, [Validators.required]],
+      id_tipo_pago: [null, [Validators.required]],
+      id_tipo_comprobante: [null, [Validators.required]],
+      identificacion_tercero: [null, [Validators.required]],
+      impuesto: [null, [Validators.required]],
+      descuento: [null, [Validators.required]],
+      total: [null, [Validators.required]],
+      identificacion_usuario: [null, [Validators.required]],
+      
     });
 
-
+    
     this.translate.setTranslate('es');
 
     $(document).on("keypress", 'form', function (e) {
@@ -89,18 +95,34 @@ export class EntriesComponent extends GeneralService implements OnInit {
     });
 
 
+
+
+
+
   }
 
-  add(data){
-  console.log("EntriesComponent -> add -> add", data)
+  /**
+   * Methods And Actions
+   * @param data 
+   */
 
+  add(data){
+
+   console.log("EntriesComponent -> add -> add", data);
   
    this.detalle.push(data);
+
    //this.detalle = [...new Set(this.detalle)];
    //this.detalle = Array.from(new Set(this.detalle));
 
+    // Not duplicate content
     this.detalle = [...new Map(this.detalle.map(item => [item.serial, item])).values()];
 
+    this.getTotalCost();
+
+
+
+    /*
     if(this.detalle.length == 1){             
 
       const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));      
@@ -116,72 +138,55 @@ export class EntriesComponent extends GeneralService implements OnInit {
       this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
       this.valorNeto = this.valorNeto - this.descuento.value;
 
-
     }
+    */
+
 
   }
 
   edit(data, field, event){
-
-    /*
-    console.log(data)
-    console.log(event.target.value)
-    console.log(field)
-    */
-
+    
+    // console.log(data)
+    // console.log(event.target.value)
+    // console.log(field)
 
     const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));
     
-    console.log("EntriesComponent -> edit -> objIndex", objIndex)
+    //console.log("EntriesComponent -> edit -> objIndex", objIndex)
 
     this.detalle[objIndex][field] = event.target.value;
     this.detalle[objIndex].total =  this.detalle[objIndex].cantidad  * this.detalle[objIndex].precio_venta;
 
-    console.log("EntriesComponent -> edit -> detalle", this.detalle)
+    this.subtotal = this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+    this.valorNeto = this.valorNeto - this.descuento.value;
+    this.form.get('total').setValue(this.valorNeto);
 
-    /*
-    console.log(this.detalle.reduce(function(valorAnterior, valorActual, indice, vector){
-      return valorAnterior + valorActual;
-    }));
-    */
+    // console.log("EntriesComponent -> edit -> detalle", this.detalle)
 
+    // console.log(this.detalle.reduce(function(valorAnterior, valorActual, indice, vector){    return valorAnterior + valorActual;    }));
 
     //console.log(this.detalle.reduce((a, b) => ({x: a.total + b.total})));
     //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
 
+    /*
+
     if(this.detalle.length == 1){   
       
       this.subtotal = this.detalle[objIndex].total;
-      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
       this.valorNeto = this.valorNeto - this.descuento.value;
 
     } else {
 
-      this.subtotal = this.detalle.reduce((a, b) =>{     
-        return a.total + b.total
-      }
-      );
-
-      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))
+      this.subtotal = this.detalle.reduce((a, b) =>{     return a.total + b.total    }    );
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
       this.valorNeto = this.valorNeto - this.descuento.value;
 
-    }
-    
-
-
-
-    console.log("EntriesComponent -> edit -> this.subtotal ", this.subtotal )
-
-    
-  
-
-
-      
-
+    }*/
 
 
     
-
 
     /*
     const result = this.detalle.filter(user => {
@@ -190,25 +195,6 @@ export class EntriesComponent extends GeneralService implements OnInit {
       }
    });
    */
-
-  }
-
-
-  PutIva(){   
-
-    console.log('update iva', this.form.get("iva").value);
-
-    //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100))
-    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("iva").value  / 100))   
-
-  }
-
-  PutDiscount(){ 
-
-    console.log('update PutDiscount', this.form.get("descuento").value);
-
-    //this.valorNeto = this.valorNeto - this.descuento.value;
-    this.valorNeto = this.valorNeto - this.form.get("descuento").value;
 
   }
 
@@ -226,34 +212,50 @@ export class EntriesComponent extends GeneralService implements OnInit {
       this.valorNeto = 0;  
 
     }
-    
-    if(this.detalle.length == 1){      
-      
-      this.subtotal = this.detalle[0].total;
-      this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
-      this.valorNeto = this.valorNeto - this.descuento.value;
-  
 
-    } else {
-
-      this.subtotal = this.detalle.reduce((a, b) => (a.total + b.total));
-      this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
-      this.valorNeto = this.valorNeto - this.descuento.value;
-
-    }
-
-
-
+    this.getTotalCost();
 
     //this.detalle.splice(objIndex);
 
   }
 
-  clear(){
+  clearCustomer(){
     console.log('ingreso');
     this.id_tipo_tercero = '';
   }
 
+  getTotalCost() {
+    //return this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
+    this.subtotal = this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value / 100));
+    this.valorNeto = this.valorNeto - this.form.get("descuento").value ;
+    this.form.get('total').setValue(this.valorNeto);
+  }
+
+  PutTax(){   
+
+    console.log('update iva', this.form.get("impuesto").value);
+
+    //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100))
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+    this.form.get('total').setValue(this.valorNeto);
+
+  }
+
+  PutDiscount(){ 
+
+    console.log('update PutDiscount', this.form.get("descuento").value);
+
+    //this.valorNeto = this.valorNeto - this.descuento.value;
+    this.valorNeto = this.valorNeto - this.form.get("descuento").value;
+    this.form.get('total').setValue(this.valorNeto);
+
+  }
+
+  /**
+   *  HTTP REQUEST
+   * 
+   */
 
   http_tipo_pago() {
     this.loading = true;
@@ -355,7 +357,6 @@ export class EntriesComponent extends GeneralService implements OnInit {
       );
   }
 
-
   http_producto(event, value){
     if(event.charCode == 13){
       console.log('buscando');
@@ -364,7 +365,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
       //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
       this.api
         .select(
-          `/unsafe/inventario/filters/producto/serial/${value}`
+          `/${this.environments.prefix}/${this.environments.db}/filters/producto/serial/${value}`
         )
         .subscribe(
           (response) => {
@@ -383,9 +384,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
 
             }
-  
-  
-           
+   
   
           },
           err => {
@@ -404,16 +403,129 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   }
 
+  httpSave(){
+    this.loading = true;
+    // utiliza la peticion al api general
+    //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
 
-  ngOnInit(): void {
-    this.http_tipo_pago();
-    this.http_tipo_comprobante();
+    const send = {
+      "maestro_movimiento": this.form.value,
+      "detalle_movimiento":  this.detalle 
+    };
 
+    this.api
+      .insert(
+        `/proccess/create/invoice`,
+        send
+      )
+      .subscribe(
+        (response) => {
+          this.loading = false;
 
+          if(response.success){
+
+            this.alert("Proceso exitoso  ", "Restornar a la lista", "success");
+
+          }
+
+        },
+        err => {
+          this.loading = false;
+          console.error("Error occured.", err);
+          this.snackBar.open(
+            `Ocurrio un Error: httpSave`,
+            "Cerrar",
+            {
+              duration: 3000
+            }
+          );
+        }
+      );
   }
 
 
+  ngOnInit(): void {
 
+    this.http_tipo_pago();
+
+    this.http_tipo_comprobante();
+
+    let urlSearch = `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/filterLikeSearch/producto/nombre/`;
+
+    let redirect = () => {
+      console.log('agregando', dataProducto);     
+      let item: any = {};
+      item = dataProducto;
+      item.cantidad = 1;
+      item.total = 1 * item.precio_venta;     
+      this.add(item);
+    };
+
+    let dataProducto;
+
+    var $eventSelect = $(".js-example-basic-single");
+
+    $eventSelect.on("select2:select", function (e) { 
+      console.log("EntriesComponent -> ngOnInit -> e", e);
+      redirect();
+      $(".js-example-basic-single").val(null).trigger("change");
+     });
+    
+    $('.js-example-basic-single').on('change', function (e) {
+      
+      console.log($(".js-example-basic-single").val());
+      
+    });
+
+
+
+      
+      $('.js-example-basic-single').select2({
+        minimumInputLength: 1,
+        allowClear: true,
+        ajax: {
+          url: urlSearch,
+          dataType: 'json',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              type: 'public'
+            }
+      
+            // Query parameters will be ?search=[term]&type=public
+            return query;
+          },
+          processResults: function (response, page) {
+            return {
+
+                results: $.map(response.data, function (item) {               
+                  
+
+                  
+                  dataProducto = item
+    
+                  //redirect(item);                             
+                  
+                    return {
+                        text: item.nombre,
+                        name: item.nombre,
+                        id: item.id
+                    }
+
+
+                })
+            };
+        }, 
+
+        }
+
+      });
+
+
+
+    
+
+  }
 
 
 }

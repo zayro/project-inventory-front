@@ -61,7 +61,7 @@ export class WarehouseComponent extends GeneralService implements OnInit {
     });
 
     // @ts-ignore
-    this.table_datable = $('#TableDb').DataTable();
+    this.table_datable = $('#TableDbWareHouse').DataTable();
 
 
   }
@@ -316,7 +316,7 @@ export class WarehouseComponent extends GeneralService implements OnInit {
     }
 
     
-    this.table_datable = $('#TableDb').DataTable({
+    this.table_datable = $('#TableDbWareHouse').DataTable({
       //ajax: 'php/select_patient_care_team.php?pid=' + pid,
       ajax: `${this.environments.api}/unsafe/inventario/all/${this.table}`,
       deferRender: true,
@@ -412,7 +412,7 @@ export class WarehouseComponent extends GeneralService implements OnInit {
     this.Loadtable();
 
     // @ts-ignore
-    if ($.fn.dataTable.isDataTable('#TableDb')) {
+    if ($.fn.dataTable.isDataTable('#TableDbWareHouse')) {
       console.log('se cargo table ********************');
     } else {
       console.log('cargando table ********************');
