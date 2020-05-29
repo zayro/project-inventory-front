@@ -1,5 +1,5 @@
 .login-card {
-    border: 1px solid #ccc;
+    //border: 1px solid #ccc;
   }
   
   .login-container {
@@ -19,4 +19,44 @@
     margin: 5px 0;
   }
   
+  .login-button {
+    width: 100%;
+  }
+
+  .login-center{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 50%;
+    margin: 0 auto;
+    transform: translate(-50%,-50%);
+  }
   
+  .mat-card-header {
+    width: 90%;
+    margin: 0 auto;
+    transform: translate(-50%,-50%);
+    display: initial;
+  }
+
+  .login-title {
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  .mat-card-avatar{
+    height: 120px;
+    width: 120px;
+    
+  }
+
+  .mat-card-header-text {
+    text-align: center;
+  }
+
+  .example-header-image {
+    background-image: url('./img/profile-avatar-png-4.png');
+    background-size: cover;
+    position: relative;
+    margin: 0 auto;
+  }

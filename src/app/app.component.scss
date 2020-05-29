@@ -1,3 +1,7 @@
+/**
+*  MENU SIDE
+*/
+
 .sidenav-container {
     display: flex;
     flex-direction: column;
@@ -9,7 +13,7 @@
 }
 
 .sidenav {
-    width: 100%;
+    width: 50%;
     box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
     display: flex;
     height: 100%;

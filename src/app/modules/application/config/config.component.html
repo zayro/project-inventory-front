@@ -1,0 +1,117 @@
+<div class="container-fluid">
+
+
+
+  <mat-tab-group dynamicHeight>
+
+    <mat-tab label=" {{ translate.locale.MODULES.config.title_tab1 }}">
+
+      <mat-card>
+
+
+        <form [formGroup]="form" (ngSubmit)="updateConfig()">
+
+          <mat-card-content>
+
+            <p [hidden]="info.image == null"> <img src="{{info.image}}" class="avatar mx-auto d-block" alt="image"> </p>
+
+            <div class="form-group">
+              <label for="name">{{ 'FORM.first_name' }}</label>
+              <input type="text" id="first_name" class="form-control" formControlName="first_name">
+            </div>
+
+            <div class="form-group">
+              <label for="name">{{ 'FORM.second_name' }}</label>
+              <input type="text" id="second_name" class="form-control" formControlName="second_name">
+            </div>
+
+            <div class="form-group">
+              <label for="surname">{{ 'FORM.first_surname' }}</label>
+              <input type="text" id="first_surname" class="form-control" formControlName="first_surname">
+            </div>
+
+            <div class="form-group">
+              <label for="surname">{{ 'FORM.second_surname' }}</label>
+              <input type="text" id="second_surname" class="form-control" formControlName="second_surname">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">{{ 'FORM.phone' }}</label>
+              <input type="number" id="phone" class="form-control" formControlName="phone">
+            </div>
+
+            <div class="form-group">
+              <input type="file" id="image" name="image" (change)="onFileChange($event)" accept="image/*" #file>
+              <label for="image">
+                <span class="image" mat-stroked-button color="primary"> upload </span>
+              </label>
+            </div>
+
+
+          </mat-card-content>
+
+          <mat-card-actions>
+            <div class="card-actions">
+              <button mat-button type="button" mat-raised-button color="accent">{{ translate.locale.BUTTON.cancel }}</button>
+              <button mat-button type="submit" mat-raised-button color="primary">{{translate.locale.BUTTON.send }} </button>
+              <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+            </div>
+          </mat-card-actions>
+
+        </form>
+
+      </mat-card>
+
+    </mat-tab>
+
+    <mat-tab label=" {{ translate.locale.MODULES.config.title_tab2 }}">
+
+      <mat-card class="login-card">
+
+        <form [formGroup]="formChangePassword" class="login-container" (submit)="changePass()">
+
+          <mat-card-title>
+            {{ translate.locale.MODULES.config.title_tab2 }}
+          </mat-card-title>
+          <hr>
+
+          <mat-card-content>
+            <div class="login-container">
+
+              <mat-form-field>
+                <input matInput placeholder="Nro Identificacion" formControlName="user" name="user" #user type="text">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="clave antigua" formControlName="oldPass" name="oldPass" type="password">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="nueva clave" formControlName="newPass" name="newPass" type="password">
+              </mat-form-field>
+
+            </div>
+
+          </mat-card-content>
+
+          <mat-card-actions>
+            <div class="card-actions">
+              <img *ngIf="loading"
+                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <button mat-button mat-raised-button color="accent" type="button"
+                routerLink="/login">{{ translate.locale.BUTTON.cancel  }}</button>
+              <button mat-button mat-raised-button color="primary"
+                type="submit">{{ translate.locale.BUTTON.update  }}</button>
+            </div>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+
+
+    </mat-tab>
+
+
+
+  </mat-tab-group>
+
+</div>

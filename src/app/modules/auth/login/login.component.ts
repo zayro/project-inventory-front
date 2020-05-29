@@ -111,6 +111,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 
 				if (response.status) {
 					this.StateService.setUser("info", response.data);
+					this.StateService.setConfig({ shutdown: true});
 				}
 			},
 			(err) => {

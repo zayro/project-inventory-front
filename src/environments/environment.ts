@@ -7,6 +7,7 @@ export const environment = {
   baseUrl: '/',
   secret_route: 'secret',
   api: 'http://127.0.0.1:8000',
+  dbAccess: 'access',
   db: 'inventario',
   prefix: 'unsafe',
   plugin: {
@@ -20,7 +21,7 @@ export const environment = {
     filtro: '/api/demo/filtro',
     all: '/api/demo/all',
     select: '/api/demo/select',
-    insecure: '/unsafe/demo/',    
+    insecure: '/unsafe/demo/',
   },
   insert: {
     general: '/api/demo/unsafe',

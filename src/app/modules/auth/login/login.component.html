@@ -1,103 +1,153 @@
-<mat-tab-group>
-    <mat-tab label="{{ translate.locale.MODULES.login.title }}">
+<mat-card class="mat-elevation-z20 login-center">
 
-        <mat-card class="login-card">
-            <form [formGroup]="formSend" class="login-container" (submit)="login()">
 
-                <!--  
+    <mat-card-header class="login-center-header">
+        <div mat-card-avatar class="example-header-image"></div>
+        <!-- <mat-icon aria-hidden="false" aria-label="icon face">face</mat-icon> -->
+
+        <div class="text-center login-title">
+            <mat-card-title>SOFTWARE</mat-card-title>
+            <mat-card-subtitle>Web</mat-card-subtitle>
+        </div>
+
+
+    </mat-card-header>
+
+    <hr>
+
+
+    <mat-tab-group>
+        <mat-tab >
+
+            <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">login</mat-icon>
+                {{ translate.locale.MODULES.login.title }}
+              </ng-template>
+
+            <mat-card class="login-card">
+
+                <form [formGroup]="formSend" class="login-container" (submit)="login()">
+
+                    <!--  
                 <mat-card-title>
                     {{ translate.locale.MODULES.LOGIN.title }}
                 </mat-card-title>
                 -->
-                <mat-card-content>
-                    <div class="login-container">
+                    <mat-card-content>
+                        <div class="login-container">
 
-                        <mat-form-field appearance="outline">
-                            <mat-label i18n="@@inputEmail">{{translate.locale.FORM.user_email }}</mat-label>
-                            <input matInput placeholder="{{ translate.locale.FORM.email  }}" formControlName="user" name="user" #email type="text">
+                            <mat-form-field appearance="outline">
+                                <mat-label i18n="@@inputEmail">{{translate.locale.FORM.user_email }}</mat-label>
+                                <input matInput placeholder="{{ translate.locale.FORM.email  }}" formControlName="user"
+                                    name="user" #email type="text" >
+                                    <mat-icon matSuffix>face</mat-icon>
 
-                        </mat-form-field>
+                            </mat-form-field>
 
-                        <mat-form-field appearance="outline">
-                            <mat-label i18n="@@inputPass">{{ translate.locale.FORM.password }}</mat-label>
-                            <input matInput placeholder="{{ translate.locale.FORM.password }}" formControlName="password" name="password"
-                                type="password">
-                        </mat-form-field>
+                            <mat-form-field appearance="outline" >
+                                <mat-label i18n="@@inputPass">{{ translate.locale.FORM.password }}</mat-label>
+                                <input matInput placeholder="{{ translate.locale.FORM.password }}" 
+                                    formControlName="password" name="password" type="password">
+                                    <mat-icon matSuffix>vpn_key</mat-icon>
+                            </mat-form-field>
 
-                    </div>
+                        </div>
 
-                </mat-card-content>
+                    </mat-card-content>
 
-                <mat-card-actions>
+                    <mat-card-actions>
 
-                    <div class="card-actions">
-                        <img *ngIf="loading"
-                            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        <button mat-button mat-raised-button color="accent" i18n="@@cancelButton">
-                            {{translate.locale.BUTTON.cancel }} </button>
-                        <button mat-button mat-raised-button color="primary"
-                            type="submit">{{ translate.locale.BUTTON.login  }}</button>
-                    </div>
+                        <div class="card-actions">
+                            <img *ngIf="loading"
+                                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button mat-button mat-raised-button color="accent" class="login-button" i18n="@@cancelButton">
+                                            {{translate.locale.BUTTON.cancel }} </button>
+                 
 
-
-
-
-                </mat-card-actions>
-            </form>
-        </mat-card>
-
-
-    </mat-tab>
-
-    <mat-tab label="{{translate.locale.MODULES.config.title_tab3}}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button mat-button mat-raised-button color="primary"  class="login-button"
+                                        type="submit">{{ translate.locale.BUTTON.send  }}</button>
+                                    </div>
+                                </div>
+                        </div>
 
 
-        <mat-card class="login-card">
-            <form [formGroup]="formRecovery" class="login-container" (submit)="recovery()">
 
-                <!--  
+
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+
+
+        </mat-tab>
+
+        <mat-tab label="{{translate.locale.MODULES.config.title_tab3}}">
+
+
+            <mat-card class="login-card">
+                <form [formGroup]="formRecovery" class="login-container" (submit)="recovery()">
+
+                    <!--  
                 <mat-card-title>
                     {{ translate.locale.MODULES.LOGIN.title }}
                 </mat-card-title>
                 -->
-                <mat-card-content>
-                    <div class="login-container">
+                    <mat-card-content>
+                        <div class="login-container">
 
-                        <mat-form-field appearance="outline">
-                            <mat-label >Correo</mat-label>
-                            <input matInput placeholder="usuario" formControlName="email" name="email"  type="email" required>
-                        </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Correo</mat-label>
+                                <input matInput placeholder="usuario" formControlName="email" name="email" type="email"
+                                    required>
+                                    <mat-icon matSuffix>email</mat-icon>
+                            </mat-form-field>
 
-                        <p>
-                            <strong>Nota:</strong> Debe tener un correo registrado
-                          </p>
-
-
-
-                    </div>
-
-                </mat-card-content>
-
-                <mat-card-actions>
-
-                    <div class="card-actions">
-                        <img *ngIf="loading"
-                            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        <button mat-button mat-raised-button color="accent" i18n="@@cancelButton">
-                            {{translate.locale.BUTTON.cancel }} </button>
-                        <button mat-button mat-raised-button color="primary"
-                            type="submit">{{ translate.locale.BUTTON.send  }}</button>
-                    </div>
+                            <p>
+                                <strong>Nota:</strong> Debe tener un correo registrado
+                            </p>
 
 
 
+                        </div>
 
-                </mat-card-actions>
-            </form>
-        </mat-card>
-        
-    
-    
-    </mat-tab>
+                    </mat-card-content>
 
-</mat-tab-group>
+                    <mat-card-actions>
+
+                        <div class="card-actions">
+                            <img *ngIf="loading"
+                                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button mat-button mat-raised-button color="accent" class="login-button" i18n="@@cancelButton">
+                                            {{translate.locale.BUTTON.cancel }} </button>
+                 
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button mat-button mat-raised-button color="primary"  class="login-button"
+                                        type="submit">{{ translate.locale.BUTTON.send  }}</button>
+                                    </div>
+                                </div>
+            
+                        </div>
+
+
+
+
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+
+
+
+        </mat-tab>
+
+    </mat-tab-group>
+
+</mat-card>

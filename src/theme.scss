@@ -6,8 +6,8 @@
 // **Be sure that you only ever include this mixin once!**
 @include mat-core();
 // Define the default theme (same as the example above).
-$default-app-primary: mat-palette($mat-teal, 900);
-$default-app-accent: mat-palette($mat-grey);
+$default-app-primary: mat-palette($mat-blue, 700);
+$default-app-accent: mat-palette($mat-grey, 600);
 $default-app-warn: mat-palette($mat-red, A700);
 $default-app-theme: mat-light-theme($default-app-primary, $default-app-accent);
 // Include the default theme styles.
@@ -18,8 +18,8 @@ $default-app-theme: mat-light-theme($default-app-primary, $default-app-accent);
 * Theme green
 */
 
-$green-primary: mat-palette($mat-green, 900);
-$green-accent: mat-palette($mat-grey, A200, A100, A400);
+$green-primary: mat-palette($mat-green, 700);
+$green-accent: mat-palette($mat-grey, 600);
 $green-warn: mat-palette($mat-deep-orange);
 $green-dark-theme: mat-dark-theme($green-primary, $green-accent, $green-warn);
 $green-light-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
@@ -28,8 +28,8 @@ $green-light-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
 * Theme blue
 */
 
-$blue-primary: mat-palette($mat-blue, 900);
-$blue-accent: mat-palette($mat-grey, A200, A100, A400);
+$blue-primary: mat-palette($mat-blue, 700);
+$blue-accent: mat-palette($mat-grey, 600);
 $blue-warn: mat-palette($mat-deep-orange);
 $blue-light-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
 $blue-dark-theme: mat-dark-theme($blue-primary, $blue-accent, $blue-warn);
@@ -38,8 +38,8 @@ $blue-dark-theme: mat-dark-theme($blue-primary, $blue-accent, $blue-warn);
 * Theme red
 */
 
-$red-primary: mat-palette($mat-red, 900);
-$red-accent: mat-palette($mat-grey, A200, A100, A400);
+$red-primary: mat-palette($mat-red, 700);
+$red-accent: mat-palette($mat-grey, 600);
 $red-warn: mat-palette($mat-deep-orange);
 $red-light-theme: mat-light-theme($red-primary, $red-accent, $red-warn);
 $red-dark-theme: mat-dark-theme($red-primary, $red-accent, $red-warn);
@@ -48,8 +48,8 @@ $red-dark-theme: mat-dark-theme($red-primary, $red-accent, $red-warn);
 * Theme yellow
 */
 
-$yellow-primary: mat-palette($mat-yellow, 900);
-$yellow-accent: mat-palette($mat-grey, A200, A100, A400);
+$yellow-primary: mat-palette($mat-yellow, 700);
+$yellow-accent: mat-palette($mat-grey, 600);
 $yellow-warn: mat-palette($mat-deep-orange);
 $yellow-light-theme: mat-light-theme($yellow-primary, $yellow-accent, $yellow-warn);
 $yellow-dark-theme: mat-dark-theme($yellow-primary, $yellow-accent, $yellow-warn);
@@ -66,10 +66,11 @@ $yellow-dark-theme: mat-dark-theme($yellow-primary, $yellow-accent, $yellow-warn
 
 .blue-dark-theme {
     @include angular-material-theme($blue-dark-theme);
+    background-color: #303030;
 }
 
 .blue-light-theme {
-    @include angular-material-theme($blue-light-theme);
+    @include angular-material-theme($blue-light-theme);    
 }
 
 .red-dark-theme {

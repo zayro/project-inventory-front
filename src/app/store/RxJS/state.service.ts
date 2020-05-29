@@ -17,17 +17,17 @@ export class StateService {
     if (sessionStorage.getItem('user')) {
       this.user = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user')));
     } else {
-      const conf: any = {
+      const user: any = {
         info: [{ first_name: 'marlon', last_name: 'arias' }],
         menu: []
       };
-      sessionStorage.setItem('user', JSON.stringify(conf));
+      sessionStorage.setItem('user', JSON.stringify(user));
       this.user = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user')));
       //this.user = new BehaviorSubject<any>('');
     }
 
 
-    if (localStorage.getItem('config')) {
+    if (localStorage.getItem('config')) {      
       this.config = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('config')));
     } else {
       const conf = { shutdown: false, locale: 'es' };
@@ -139,7 +139,7 @@ export class StateService {
    */
   setConfig(data: any) {
 
-    sessionStorage.setItem('userConfig', JSON.stringify(data));
+    localStorage.setItem('config', JSON.stringify(data));
     this.config.next(data);
     //this.info_user.complete();
   }

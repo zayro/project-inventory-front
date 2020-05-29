@@ -2,12 +2,17 @@
 
     <form class="example-form" #f="ngForm" class="formi-container" [formGroup]="form"  (submit)="httpSave()" > 
 
-        <mat-card>
+        <mat-card class="mat-elevation-z5" >
+
+            <mat-card-title>Ingreso de Mercancia</mat-card-title>
+        
+            <hr>
+        
 
             <div class="row">
 
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
 
                     <mat-form-field class="example-full-width">
                         <mat-label>Tipo Pago</mat-label>
@@ -20,8 +25,15 @@
 
                 </div>
 
+                <div class="col-md-4 col-sm-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Description" formControlName="descripcion">
+                    </mat-form-field>
 
-                <div class="col-md-6 col-sm-12">
+                </div>  
+
+                <div class="col-md-4 col-sm-12">
 
                     <mat-form-field class="example-full-width">
                         <mat-label>Tipo Comprobante</mat-label>
@@ -34,6 +46,12 @@
 
 
                 </div>
+                
+            </div>
+
+
+                <div class="row">
+
 
                 <div class="col-md-10 col-sm-12">
                     <mat-form-field class="example-full-width">
@@ -52,17 +70,7 @@
                         (click)="http_tercero(form.get('identificacion_tercero').value)">Search</button>
                 </div>
 
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-12 col-sm-12">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Description</mat-label>
-                    <input matInput placeholder="Description" formControlName="descripcion">
-                </mat-form-field>
-
-            </div>
+       
 
             </div>
 
@@ -259,10 +267,10 @@
                     type="submit" [disabled]="form.invalid && detalle.length < 1">{{ translate.locale.BUTTON.send  }}</button>
             </mat-card-actions>
 
-            <p>Form value: {{ form.value | json }}</p>
+            <!-- <p>Form value: {{ form.value | json }}</p>
             <p>Form status: {{ form.status | json }}</p>
             <p>Form status: {{ form.invalid}}</p>
-            <p>Form status: {{  detalle.length < 1 }}</p>
+            <p>Form status: {{  detalle.length < 1 }}</p> -->
 
         </mat-card>
 

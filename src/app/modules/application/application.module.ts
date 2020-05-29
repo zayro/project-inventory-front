@@ -22,6 +22,9 @@ import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.compo
 import { EditSupplierComponent } from './supplier/edit-supplier/edit-supplier.component';
 import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+import { InvoiceComponent } from './report/invoice/invoice.component';
+import { InventoryComponent } from './report/inventory/inventory.component';
+import { ConfigComponent } from './config/config.component';
 
 
 /** 
@@ -29,7 +32,7 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
  */
 
 @NgModule({
-  declarations: [HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent, WarehouseComponent, ProductComponent, AddComponent, EditComponent, SupplierComponent, CustomerComponent, AddSupplierComponent, EditSupplierComponent, AddCustomerComponent, EditCustomerComponent],
+  declarations: [HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent, WarehouseComponent, ProductComponent, AddComponent, EditComponent, SupplierComponent, CustomerComponent, AddSupplierComponent, EditSupplierComponent, AddCustomerComponent, EditCustomerComponent, InvoiceComponent, InventoryComponent, ConfigComponent],
   imports: [
     CommonModule,
     // Form

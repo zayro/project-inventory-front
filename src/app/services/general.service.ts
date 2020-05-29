@@ -73,7 +73,7 @@ export class GeneralService {
     this.api = injector.get(HttpData);
     this.jwt = injector.get(JwtService);
     this.StateService = injector.get(StateService);
-    this.translate = injector.get(TranslateService);    
+    this.translate = injector.get(TranslateService);
   }
 
 }

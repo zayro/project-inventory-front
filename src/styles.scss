@@ -63,6 +63,28 @@ body {
 }
 
 
+
+.login-fondo{
+    margin: 0;
+    
+    //background-color: red;
+    //background-repeat: repeat;
+    //background-image: url("#{$image-background}/ep_naturalwhite.png");
+    background-image: url("./assets/images/png/portadas/principal.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-repeat: no-repeat;
+    background-position: center center;
+    
+}
+
+.login-ocupacity{
+    background: rgba(2, 0, 0, 0.5); 
+    height: 100vh;
+    
+
+}
+
 /**
 * Mantiene iconos de Material
 */

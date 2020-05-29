@@ -71,11 +71,16 @@ ng g c modules/application/supplier/add-supplier -m modules/application/applicat
 ng g c modules/application/supplier/edit-supplier -m modules/application/application.module.ts
 
 
-
 ng g c modules/application/product -m modules/application/application.module.ts
 ng g c modules/application/product/add -m modules/application/application.module.ts
 ng g c modules/application/product/edit -m modules/application/application.module.ts
 ng g c modules/application/product/delete -m modules/application/application.module.ts
+
+ng g c modules/application/report -m modules/application/application.module.ts
+ng g c modules/application/report/invoice -m modules/application/application.module.ts
+ng g c modules/application/report/inventory -m modules/application/application.module.ts
+
+ng g c modules/application/config -m modules/application/application.module.ts
 
 
 # - variable declaration

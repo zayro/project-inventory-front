@@ -31,12 +31,19 @@ import { CustomerComponent } from "./modules/application/customer/customer.compo
 import { AddCustomerComponent } from "./modules/application/customer/add-customer/add-customer.component";
 import { EditCustomerComponent } from "./modules/application/customer/edit-customer/edit-customer.component";
 
+import { ReportsComponent } from "./modules/application/reports/reports.component";
+
+import { ConfigComponent } from "./modules/application/config/config.component";
+
+
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "home", component: HomeComponent, canActivate: [AuthguardGuard] },
 	{ path: "purchase", component: EntriesComponent },
 	{ path: "sale", component: EntriesComponent },
 	{ path: "warehouse", component: WarehouseComponent },
+	{ path: "config", component: ConfigComponent },
+	{ path: "report", component: ReportsComponent },
 	{
 		path: "supplier", component: SupplierComponent,
 		children: [

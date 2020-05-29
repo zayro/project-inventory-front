@@ -6,6 +6,16 @@ import {
 	BreakpointState,
 } from "@angular/cdk/layout";
 
+
+import {
+	ActivatedRoute,
+	Router,
+	NavigationStart,
+	NavigationError,
+	NavigationEnd
+  } from '@angular/router';
+  
+
 import { Observable } from "rxjs";
 
 import { FormControl } from "@angular/forms";
@@ -35,7 +45,7 @@ export class AppComponent extends GeneralService implements OnInit, OnChanges {
 	public theme;
 	public config: any = {
 		infoUser: {},
-		shutdown: true,
+		shutdown: false,
 		menuLateral: []
 	};
 
@@ -69,12 +79,42 @@ export class AppComponent extends GeneralService implements OnInit, OnChanges {
 		this.isHandset.subscribe((resp) => console.log('isHandset', resp));
 
 		this.StateService.getUser().subscribe(message => {
-			console.log("AppComponent -> message", message)
+			console.log("AppComponent -> getUser", message)
 
 			//this.user$ = message.info;
 			this.menu$ = message;
 			this.user$ = message.info[0];
 		})
+
+		this.StateService.getConfig().subscribe(message => {
+			console.log("AppComponent -> getConfig", message)
+
+			//this.user$ = message.info;
+			this.config = message;
+
+		})		
+
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationStart) {
+			  // Show loading indicator
+			  console.log('NavigationStart', event);
+			}
+	  
+			if (event instanceof NavigationEnd) {
+			  // Hide loading indicator
+			  console.log('NavigationEnd', event);
+			  
+			}
+	  
+			if (event instanceof NavigationError) {
+			  // Hide loading indicator
+			  // Present error to user
+			  console.log('NavigationError', event.error);
+			}
+		  });
+
+		  console.log('current router',this.router.url);
+		  console.log('current config', this.config );
 	}
 
 
@@ -96,6 +136,7 @@ export class AppComponent extends GeneralService implements OnInit, OnChanges {
 	closeSession() {
 		localStorage.clear();
 		localStorage.removeItem('config');
+		this.StateService.setConfig({ shutdown: false});
 		this.router.navigate(['login']);
 	}
 

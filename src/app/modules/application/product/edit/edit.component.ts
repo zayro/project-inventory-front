@@ -89,7 +89,7 @@ export class EditComponent extends GeneralService implements OnInit {
           console.log("AddComponent -> http_producto -> this.info", this.info)
 
           this.tableIdValue =this.info.id;
-          
+
           this.form.setValue({
             nombre: this.info.nombre,
             serial: this.info.serial,
@@ -131,7 +131,7 @@ export class EditComponent extends GeneralService implements OnInit {
 
     this.api
       .update(
-        `/unsafe/inventario/edit`,
+        `/${this.environments.prefix}/${this.environments.db}/edit`,
         send
       )
       .subscribe(

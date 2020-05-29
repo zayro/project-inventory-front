@@ -1,22 +1,68 @@
-.space{
+.space {
     margin-top: 20px;
 }
 
-.bg-info-client {
-    border-color: #187da0 ;
-    background-color: #63c2de ;
+.bg-info-clients {
+    border-color: #187da0;
+    background-color: #63c2de;
     color: white;
 }
+
+
+
+.bg-info-clerks {
+    border-color: #187da0;
+    background-color: #2eadd3;
+    color: white;
+}
+
+.bg-info-client {
+    border-color: #187da0;
+    background-color: #1256B1;
+    color: white;
+}
+
 
 .bg-info-clerk {
-    border-color: #187da0 ;
-    background-color: #2eadd3 ;
+    border-color: #187da0;
+    background-color: #2196F3;
     color: white;
 }
 
 
+.bg-info-purchase {
+
+    background-color: #773CE2;
+    color: white;
+
+}
+
+
+.bg-info-sale {
+    background-color: #007A6C;
+    color: white;
+}
+
+
+
+
+
+.mat-mini-fab {
+    width: 60px;
+    height: 60px;
+}
 
 
 .mat-icon {
-    font-size: 50px;
-  }
+    width: 40px;
+    height: 40px;
+}
+
+.material-icons {
+    font-size: 40px;
+}
+
+/*
+* Buttons
+*/
+

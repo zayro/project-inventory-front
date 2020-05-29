@@ -23,7 +23,7 @@ import { GeneralService } from "../../../services/general.service";
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.scss']
 })
-export class EntriesComponent extends GeneralService implements OnInit {
+export class EntriesCopyComponent extends GeneralService implements OnInit {
 
 	/**
 	 * INITIAL VAR
@@ -121,6 +121,9 @@ export class EntriesComponent extends GeneralService implements OnInit {
   
    this.detalle.push(data);
 
+   //this.detalle = [...new Set(this.detalle)];
+   //this.detalle = Array.from(new Set(this.detalle));
+
     // Not duplicate content
     this.detalle = [...new Map(this.detalle.map(item => [item.serial, item])).values()];
 
@@ -128,10 +131,34 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
 
 
+    /*
+    if(this.detalle.length == 1){             
+
+      const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));      
+      this.detalle[objIndex].total =  this.detalle[objIndex].cantidad  * this.detalle[objIndex].precio_venta;
+      
+      this.subtotal = this.detalle[objIndex].total;         
+      this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    } else {
+
+      this.subtotal = this.detalle.reduce((a, b) => (a.total + b.total));
+      this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    }
+    */
+
+
   }
 
   edit(data, field, event){
     
+    // console.log(data)
+    // console.log(event.target.value)
+    // console.log(field)
+
     const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));
     
     //console.log("EntriesComponent -> edit -> objIndex", objIndex)
@@ -143,6 +170,40 @@ export class EntriesComponent extends GeneralService implements OnInit {
     this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
     this.valorNeto = this.valorNeto - this.descuento.value;
     this.form.get('total').setValue(this.valorNeto);
+
+    // console.log("EntriesComponent -> edit -> detalle", this.detalle)
+
+    // console.log(this.detalle.reduce(function(valorAnterior, valorActual, indice, vector){    return valorAnterior + valorActual;    }));
+
+    //console.log(this.detalle.reduce((a, b) => ({x: a.total + b.total})));
+    //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100));
+
+    /*
+
+    if(this.detalle.length == 1){   
+      
+      this.subtotal = this.detalle[objIndex].total;
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    } else {
+
+      this.subtotal = this.detalle.reduce((a, b) =>{     return a.total + b.total    }    );
+      this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+      this.valorNeto = this.valorNeto - this.descuento.value;
+
+    }*/
+
+
+    
+
+    /*
+    const result = this.detalle.filter(user => {
+      if(user[key] == value) {
+        return  user[key] = newValue;
+      }
+   });
+   */
 
   }
 
@@ -248,7 +309,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
     //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
     this.api
       .select(
-        `/${this.environments.prefix}/${this.environments.db}/filters/tipo_comprobante/id_naturaleza/1`
+        `/unsafe/inventario/all/tipo_comprobante`
       )
       .subscribe(
         (response) => {
@@ -280,7 +341,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
     //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
     this.api
       .select(
-        `/${this.environments.prefix}/${this.environments.db}/filters/view_proveedor/identificacion/${id}`
+        `/unsafe/inventario/filters/tercero/identificacion/${id}`
       )
       .subscribe(
         (response) => {
@@ -468,6 +529,10 @@ export class EntriesComponent extends GeneralService implements OnInit {
         }
 
       });
+
+
+
+    
 
   }
 
