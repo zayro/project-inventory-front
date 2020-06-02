@@ -91,9 +91,12 @@ private tableId;
 
           if(response.success){
 
-            this.alert("Proceso exitoso  ", "Restornar a la lista", "success");            
+            this.alert("Proceso exitoso  ", "Restornar a la lista", "success");
             this.router.navigate(['customer/']);
 
+          }else {
+
+            this.alert("Ocurrio un problema ", "existe un problema con los registros", "warning");
           }
 
 

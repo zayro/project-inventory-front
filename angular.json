@@ -46,15 +46,15 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [              
+            "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/alertifyjs/build/css/alertify.min.css",
               "./node_modules/alertifyjs/build/css/themes/bootstrap.min.css",
-              "./node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "./node_modules/datatables.net-select-dt/css/select.dataTables.css",
+              "./node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+              "./node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css",
               "./node_modules/font-awesome/css/font-awesome.min.css",
-              "./node_modules/select2/dist/css/select2.min.css", 
               "src/styles.scss",
               "src/theme.scss"
           ],
@@ -62,17 +62,19 @@
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/alertifyjs/build/alertify.min.js",
-              "./node_modules/datatables.net/js/jquery.dataTables.js",     
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
               "./node_modules/datatables.net-buttons/js/dataTables.buttons.js",
               "./node_modules/datatables.net-buttons/js/buttons.colVis.js",
               "./node_modules/datatables.net-buttons/js/buttons.flash.js",
               "./node_modules/datatables.net-buttons/js/buttons.html5.js",
               "./node_modules/datatables.net-buttons/js/buttons.print.js",
+              "./node_modules/pdfmake/build/pdfmake.min.js",
+              "./node_modules/pdfmake/build/vfs_fonts.js",
               "./node_modules/datatables.net-responsive/js/dataTables.responsive.js",
               "./node_modules/datatables.net-select/js/dataTables.select.js",
               "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
-              "./node_modules/select2/dist/js/select2.min.js"
-          ],   
+              "./node_modules/html2canvas/dist/html2canvas.min.js"
+          ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -139,10 +141,33 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [              
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/alertifyjs/build/css/alertify.min.css",
+              "./node_modules/alertifyjs/build/css/themes/bootstrap.min.css",
+              "./node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "./node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
+              "./node_modules/datatables.net-select-dt/css/select.dataTables.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/sweetalert/dist/sweetalert2.min.css",
+              "./node_modules/select2/dist/css/select2.min.css",
+              "src/styles.scss",
+              "src/theme.scss"
           ],
           "scripts": [
-          ],                            
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/alertifyjs/build/alertify.min.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "./node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "./node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "./node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "./node_modules/datatables.net-buttons/js/buttons.print.js",
+              "./node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+              "./node_modules/datatables.net-select/js/dataTables.select.js",
+              "./node_modules/sweetalert/dist/sweetalert2.min.js"
+          ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

@@ -1,13 +1,15 @@
-<div [ngClass]="theme">
+<div [ngClass]="theme" [ngSwitch]="router.url">
 
-    <mat-sidenav-container [className]="(router.url === '/login') ? ' sidenav-container login-fondo' : ' sidenav-container'" >
+    <!-- <mat-sidenav-container [className]="(router.url === '/login') ? ' sidenav-container login-fondo' : ' sidenav-container'" > -->
+      <!-- <mat-sidenav-container *ngSwitchCase="'/login'" class="sidenav-container login-fondo" > -->
+        <mat-sidenav-container  class="{{fondo}}" >
 
         <mat-sidenav #sidenav class="sidenav" [mode]="mode.value">
 
             <mat-toolbar color="primary" >
                 <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
                     <mat-icon aria-label="Side nav toggle icon" svgIcon="menu">menu</mat-icon>
-                </button> MENU 
+                </button> MENU
             </mat-toolbar>
 
 
@@ -32,22 +34,22 @@
             <mat-divider></mat-divider>
 
             <mat-nav-list >
-                
-                <a  mat-subheader mat-list-item *ngFor="let item of menu$.menu" routerLink="{{item.link}}" (click)="sidenav.toggle()"> 
-                    <mat-icon aria-hidden="false" aria-label="icon menu">{{item.icon}}</mat-icon>  
 
-                    <p class="menu-lateral">                        
+                <a  mat-subheader mat-list-item *ngFor="let item of menu$.menu" routerLink="{{item.link}}" (click)="sidenav.toggle()">
+                    <mat-icon aria-hidden="false" aria-label="icon menu">{{item.icon}}</mat-icon>
+
+                    <p class="menu-lateral">
                         {{item.menu }}
                     </p>
-                        
-                    <mat-divider></mat-divider> 
+
+                    <mat-divider></mat-divider>
                           </a>
-                
+
             </mat-nav-list>
-            <mat-divider></mat-divider> 
+            <mat-divider></mat-divider>
         </mat-sidenav>
 
-        <mat-sidenav-content [className]="(router.url === '/login') ? 'login-ocupacity' : ''" >
+        <mat-sidenav-content>
 
             <mat-toolbar color="primary" class="mat-elevation-z5" *ngIf="config.shutdown">
                 <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
@@ -105,4 +107,6 @@
         </mat-sidenav-content>
 
     </mat-sidenav-container>
+
+
 </div>

@@ -25,14 +25,16 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
 import { InvoiceComponent } from './report/invoice/invoice.component';
 import { InventoryComponent } from './report/inventory/inventory.component';
 import { ConfigComponent } from './config/config.component';
+import { SaleComponent } from './report/sale/sale.component';
+import { PrintSaleComponent } from './reports/print-sale/print-sale.component';
 
 
-/** 
+/**
  * Components Aplication
  */
 
 @NgModule({
-  declarations: [HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent, WarehouseComponent, ProductComponent, AddComponent, EditComponent, SupplierComponent, CustomerComponent, AddSupplierComponent, EditSupplierComponent, AddCustomerComponent, EditCustomerComponent, InvoiceComponent, InventoryComponent, ConfigComponent],
+  declarations: [HomeComponent, EntriesComponent, OutletsComponent, ReportsComponent, WarehouseComponent, ProductComponent, AddComponent, EditComponent, SupplierComponent, CustomerComponent, AddSupplierComponent, EditSupplierComponent, AddCustomerComponent, EditCustomerComponent, InvoiceComponent, InventoryComponent, ConfigComponent, SaleComponent, PrintSaleComponent],
   imports: [
     CommonModule,
     // Form

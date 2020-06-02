@@ -1,0 +1,140 @@
+<div class="container contenedor" id="contenedor" >
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-primary" role="alert">
+        Factura de Venta
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-sm-6">
+
+      <img src="./assets/images/business/images.png" class="logo-image" alt="">
+    </div>
+
+    <div class="col-sm-6">
+      <p><strong>Fecha Factura:</strong>  {{encabezado.fecha}}</p>
+      <p><strong>Empresa:</strong> xxxxxx</p>
+      <p><strong>Direccion:</strong> xxxxxx</p>
+      <p><strong>Telefono:</strong> xxxxxx</p>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <div class="card">
+        <!-- <div class="card-header">Detalle Cliente</div> -->
+        <div class="card-body ">
+          <h3 class="card-title">Detalle Cliente</h3>
+          <p> <strong>Nombre:</strong> {{encabezado.persona}}</p>
+          <p> <strong>Email:</strong> {{encabezado.email}}</p>
+          <p> <strong>Telefono:</strong> {{encabezado.telefono}}</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-sm-6">
+      <div class="card">
+        <!-- <div class="card-header">Forma De Pago</div> -->
+        <div class="card-body">
+          <h3 class="card-title">Forma De Pago</h3>
+          <p>  {{encabezado.pago}}</p>
+          <p> {{encabezado.movimiento}}</p>
+          <p> <strong>Descripcion:</strong>  {{encabezado.descripcion}} </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+
+  <div class="row">
+
+    <div class="col-sm-12">
+
+      <table class="table table-borderless ">
+        <thead class="bg-info">
+          <tr>
+            <th>serial</th>
+            <th>producto</th>
+            <th>cantidad</th>
+            <th>valor</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of detalle; let i = index">
+            <td>{{data.serial}}</td>
+            <td>{{data.nombre}}</td>
+            <td>{{data.cantidad}}</td>
+            <td>{{data.precio | currency}}</td>
+            <td>{{ data.cantidad * data.precio | currency}} </td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+
+          <tr>
+            <th colspan="4">Impuesto</th>
+            <th>
+              <div>
+                {{encabezado.impuesto}}
+              </div>
+            </th>
+
+          </tr>
+
+
+          <tr>
+            <th colspan="4">Descuento</th>
+            <th> {{encabezado.descuento}} </th>
+
+          </tr>
+
+
+          <tr>
+            <th colspan="4">Total a Pagar: </th>
+            <th>{{encabezado.total | currency}} </th>
+          </tr>
+
+
+        </tfoot>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+
+
+  <hr>
+
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="alinear ocultar">
+      <button class="btn btn-outline-primary" id="print_pdf"> pdf</button>
+      <button class="btn btn-outline-primary" id="print_jpg"> jpg</button>
+      <button class="btn btn-outline-primary" id="print_only"> print</button>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="export"> </div>

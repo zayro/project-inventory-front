@@ -55,18 +55,33 @@ body {
 
 
 
-body {
-    margin: 0;
-    font-family: $font-primary;
-    background: url("#{$image-background}/playstation-pattern.png");
-    background-repeat: repeat;
+// body {
+//     margin: 0;
+//     font-family: $font-primary;
+//     background: url("#{$image-background}/playstation-pattern.png");
+//     background-repeat: repeat;
+// }
+
+.mat-drawer-container{
+  background-color: white;
 }
 
+.fondo-print {
+  margin: 0;
+  background-color: white;
+}
 
+.main-fondo {
+  margin: 0;
+  font-family: $font-primary;
+  // background: url("#{$image-background}/playstation-pattern.png");
+  background: url("#{$image-background}/science_light.jpg");
+  background-repeat: repeat;
+}
 
 .login-fondo{
     margin: 0;
-    
+
     //background-color: red;
     //background-repeat: repeat;
     //background-image: url("#{$image-background}/ep_naturalwhite.png");
@@ -75,13 +90,13 @@ body {
     background-repeat:no-repeat;
     background-repeat: no-repeat;
     background-position: center center;
-    
+
 }
 
 .login-ocupacity{
-    background: rgba(2, 0, 0, 0.5); 
+    background: rgba(2, 0, 0, 0.5);
     height: 100vh;
-    
+
 
 }
 
@@ -235,4 +250,16 @@ img.avatar {
     border-radius: 50%;
     background-size: 100% auto;
     border: 2px solid grey;
+}
+
+
+@media print {
+
+  body {
+    margin: 0;
+    font-family: $font-primary;
+    background-color: white;
+  }
+
+
 }

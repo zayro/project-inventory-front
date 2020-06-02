@@ -25,7 +25,6 @@ import {
   NavigationEnd
 } from '@angular/router';
 
-
 // import Services
 import * as service from "../../../services/index";
 import { GeneralService } from "../../../services/general.service";
@@ -37,7 +36,7 @@ import { GeneralService } from "../../../services/general.service";
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
-export class CustomerComponent  extends GeneralService implements AfterViewInit, OnInit, OnDestroy {
+export class CustomerComponent extends GeneralService implements AfterViewInit, OnInit, OnDestroy {
 
 
   public paramSubscription: boolean;
@@ -52,7 +51,7 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
   actionSent: string;
 
 
-  
+
   /**
    * Var about Edit
    */
@@ -61,6 +60,7 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
   tableId = 'id';
   tableIdValue;
   loading;
+  btnEditar;
 
 
 
@@ -82,10 +82,10 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
         // Hide loading indicator
         this.paramSubscription = this.router.isActive('/customer', true);
 
-        if(this.paramSubscription ){
+        if (this.paramSubscription) {
           this.table_datable.ajax.reload();
         }
-         
+
         console.log("ProductComponent -> this.router.isActive('/product', true);", this.router.isActive('/customer', true))
       }
 
@@ -121,6 +121,7 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
       this.RedirectAdd();
     }
 
+
     this.table_datable = $('#TableDbCustomer').DataTable({
       pagingType: 'full_numbers',
       paging: true,
@@ -148,6 +149,7 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
         { data: 'nombre' },
         { data: 'email' },
         { data: 'telefono' },
+        { data: 'identificacion' },
         {
           visible: true,
           searchable: false,
@@ -156,18 +158,23 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
           render: function (data, type, full) {
 
             // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
-            return '<a><i  class="fa fa-edit"></i><a/><a><i  class="fa fa-close"></i><a/>';
+            return `
+            <div class="text-center">
+            <button class="btn btn-outline-primary edit"><i  class="fa fa-edit"></i></button>
+            <button class="btn btn-outline-danger delete"><i  class="fa fa-close"></i></button>
+            </div>
+            `;
           }
         }
       ],
-     
+
       rowCallback: (row: Node, data: any, index: number) => {
 
         const self = this;
         // Unbind first in order to avoid any duplicate handler
         // $('td', row).unbind('click');
-        $('i.fa-edit', row).bind('click', () => self.RedirectEdit(data));
-        $('i.fa-close', row).bind('click', () => self.destroyData(data.id));
+        $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+        $('button.delete', row).bind('click', () => self.destroyData(data.id));
         // $('button.btn', row).bind('click', () => self.Redirect(data));
         return row;
       },
@@ -175,45 +182,47 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
       // Declare the use of the extension in the dom parameter
       // dom: 'frtipBL',
       //dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
-      dom:    "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-      "<'row'<'col-sm-12'tr>>" +
-      "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+      dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
       // Configure the buttons
-      buttons:  [
+      buttons: [
+        // {
+        //   extend: 'copy',
+        //   className: 'btn btn-outline-secondary',
+        // },
+        // {
+        //   extend: 'excel',
+        //   className: 'btn btn-outline-secondary',
+        // },
+        // {
+        //   extend: 'print',
+        //   className: 'btn btn-outline-secondary',
+        //   exportOptions: {
+        //     columns: [0, 1, 2,3]
+        //   }
+        // },
+        // {
+        //   extend: 'pdfHtml5',
+        //   className: 'btn btn-outline-secondary',
+        // },
+        // {
+        //   extend: 'csv',
+        //   className: 'btn btn-outline-secondary',
+        // },
+        // {
+        //   extend: 'columnsToggle',
+        // },
+
         {
-          extend: 'copy',
-          className: 'btn btn-outline-secondary',
-        },
-        {
-          extend: 'excel',
-          className: 'btn btn-outline-secondary',
-        },
-        {
-          extend: 'print',
-          className: 'btn btn-outline-secondary',
-        },
-        {
-          extend: 'pdf',
-          className: 'btn btn-outline-secondary',
-        },      
-        {
-          extend: 'csv',
-          className: 'btn btn-outline-secondary',
-        }, 
-        /*  
-        {
-          extend: 'columnsToggle',
-        },  
-        */      
-        {
-          text: '<a><i  class="fa fa-plus"></i><a/> Add',
+          text: '<button class="btn btn-outline-secondary"> <i  class="fa fa-plus"></i> </button> ',
           className: 'btn btn-default btn-xs',
-          action: function (dt) {          
+          action: function (dt) {
             redirect();
-            console.log('My custom button!');            
+            console.log('My custom button!');
           }
         },
-      ],  
+      ],
 
     });
   }
@@ -228,45 +237,45 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
       buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
+      .then((willDelete) => {
+        if (willDelete) {
 
-        this.loading = true;
-        // utiliza la peticion al api general
-        //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
-        this.api
-          .delete(
-            `/${this.environments.prefix}/${this.environments.db}/destroy/${this.table}/${this.tableId}/${id}`
-          )
-          .subscribe(
-            (response) => {
-              this.loading = false;
+          this.loading = true;
+          // utiliza la peticion al api general
+          //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
+          this.api
+            .delete(
+              `/${this.environments.prefix}/${this.environments.db}/destroy/${this.table}/${this.tableId}/${id}`
+            )
+            .subscribe(
+              (response) => {
+                this.loading = false;
 
-              if(response.success){
+                if (response.success) {
 
-                this.table_datable.ajax.reload();                       
-    
-              }
-    
-    
-            },
-            err => {
-              this.loading = false;
-              console.error("Error occured.", err);
-              this.snackBar.open(
-                `Ocurrio un Error: http_lptipoausentismo`,
-                "Cerrar",
-                {
-                  duration: 3000
+                  this.table_datable.ajax.reload();
+
                 }
-              );
-            }
-          );
- 
-      } else {
-       console.log('not delete row');
-      }
-    });
+
+
+              },
+              err => {
+                this.loading = false;
+                console.error("Error occured.", err);
+                this.snackBar.open(
+                  `Ocurrio un Error: http_lptipoausentismo`,
+                  "Cerrar",
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            );
+
+        } else {
+          console.log('not delete row');
+        }
+      });
 
 
 
@@ -309,7 +318,7 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
   ngOnInit(): void {
     console.log('ngOnInit');
     this.getData();
-   
+
   }
 
   ngAfterViewInit(): void {
@@ -320,5 +329,5 @@ export class CustomerComponent  extends GeneralService implements AfterViewInit,
 
   ngOnDestroy() {
     console.log('ngOnDestroy');
-   }
+  }
 }

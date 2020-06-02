@@ -14,7 +14,6 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 // import Services
-import * as service from "../../../../services/index";
 import { GeneralService } from "../../../../services/general.service";
 import { IvyParser } from '@angular/compiler';
 

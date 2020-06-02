@@ -68,3 +68,13 @@ p.menu-lateral{
     font-weight: bold;
     text-transform: capitalize;
 }
+
+@media print {
+
+  /* Contenido del fichero print.css */
+  mat-toolbar {
+    visibility: hidden;
+    display: none;
+  }
+
+}

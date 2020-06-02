@@ -78,6 +78,10 @@ ng g c modules/application/product/delete -m modules/application/application.mod
 
 ng g c modules/application/report -m modules/application/application.module.ts
 ng g c modules/application/report/invoice -m modules/application/application.module.ts
+ng g c modules/application/report/sale -m modules/application/application.module.ts
+ng g c modules/application/report/sale/printSale -m modules/application/application.module.ts
+
+
 ng g c modules/application/report/inventory -m modules/application/application.module.ts
 
 ng g c modules/application/config -m modules/application/application.module.ts

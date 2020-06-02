@@ -1,0 +1,86 @@
+//@import "./css/bootstrap.min.css";
+
+html > * {
+  color-adjust: exact !important;
+  -webkit-print-color-adjust: exact !important;
+
+}
+
+table {
+  border-width: 1px 0 0 1px !important;
+}
+
+thead th{
+  font-weight: bold;
+  background-color: #cce5ff !important;
+  border-width: 0 1px 1px 0 !important;
+}
+
+tfoot th{
+  background-color: #F7F7F7 !important;
+  -webkit-print-color-adjust: exact !important;
+  text-transform: capitalize;
+  font-weight: initial;
+  border-width: 0 1px 1px 0 !important;
+  font-weight: bold;
+}
+
+.mat-drawer-container {
+  background-color: white;
+}
+
+
+@media screen {
+  /* Contenido del fichero home.css */
+
+
+  hr {
+    border: 1px solid #cccccc;
+  }
+
+  .logo-image {
+    background-image: url('./img/images.png');
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .alinear {
+    margin: auto;
+  }
+
+
+  .contenedor {
+    margin: auto;
+    margin-top: 25px;
+    max-width: 700px;
+  }
+
+
+}
+
+@media print {
+
+
+  .box-text {
+    font-size: 27px !important;
+    color: blue !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  /* Contenido del fichero print.css */
+  .ocultar {
+    visibility: hidden !important;
+  }
+
+  .contenedor {
+    margin: auto;
+    margin-top: 25px;
+    //max-width: 700px;
+    background-color: white;
+    visibility: visible;
+  }
+
+
+
+
+}

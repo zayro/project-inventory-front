@@ -32,85 +32,107 @@ import { AddCustomerComponent } from "./modules/application/customer/add-custome
 import { EditCustomerComponent } from "./modules/application/customer/edit-customer/edit-customer.component";
 
 import { ReportsComponent } from "./modules/application/reports/reports.component";
+import { PrintSaleComponent } from './modules/application/reports/print-sale/print-sale.component';
+import { SaleComponent } from "./modules/application/report/sale/sale.component";
 
 import { ConfigComponent } from "./modules/application/config/config.component";
 
 
 const routes: Routes = [
-	{ path: "login", component: LoginComponent },
-	{ path: "home", component: HomeComponent, canActivate: [AuthguardGuard] },
-	{ path: "purchase", component: EntriesComponent },
-	{ path: "sale", component: EntriesComponent },
-	{ path: "warehouse", component: WarehouseComponent },
-	{ path: "config", component: ConfigComponent },
-	{ path: "report", component: ReportsComponent },
-	{
-		path: "supplier", component: SupplierComponent,
-		children: [
-			// {path: '', redirectTo: 'table-export', pathMatch: 'full'},
-			{
-				path: 'add', // la ruta real es movimientos/nuevo
-				component: AddSupplierComponent
-			},
-			{
-				path: 'edit/:id', // la ruta real es movimientos/editar
-				component: EditSupplierComponent,
-				data: { title: 'Editar', action: 'update' }
-			},
-			{ path: '', redirectTo: '', pathMatch: 'full' }
-		]
-	},
-	{
-		path: "customer", component: CustomerComponent,
-		children: [
-			// {path: '', redirectTo: 'table-export', pathMatch: 'full'},
-			{
-				path: 'add', // la ruta real es movimientos/nuevo
-				component: AddCustomerComponent
-			},
-			{
-				path: 'edit/:id', // la ruta real es movimientos/editar
-				component: EditCustomerComponent,
-				data: { title: 'Editar', action: 'update' }
-			},
-			{
-				path: 'delete/:id', // la ruta real es movimientos/nuevo
-				component: EditCustomerComponent
-			},
-			{ path: '', redirectTo: '', pathMatch: 'full' }
-		]
-	}, {
-		path: 'product',
-		component: ProductComponent,
-		children: [
-			// {path: '', redirectTo: 'table-export', pathMatch: 'full'},
-			{
-				path: 'add', // la ruta real es movimientos/nuevo
-				component: AddComponent
-			},
-			{
-				path: 'edit/:id', // la ruta real es movimientos/editar
-				component: EditComponent,
-				data: { title: 'Editar', action: 'update' }
-			},
-			{
-				path: 'delete/:id', // la ruta real es movimientos/nuevo
-				component: ProductComponent
-			},
-			{ path: '', redirectTo: '', pathMatch: 'full' }
-		]
-	},
-	{ path: "test", component: TestComponent },
-	{
-		path: "**",
-		redirectTo: "login",
-		pathMatch: "full",
-	},
+  { path: "login", component: LoginComponent },
+  { path: "home", component: HomeComponent, canActivate: [AuthguardGuard] },
+  { path: "purchase", component: EntriesComponent },
+  { path: "sale", component: EntriesComponent },
+  { path: "warehouse", component: WarehouseComponent },
+  { path: "config", component: ConfigComponent },
+  {
+    path: "reportSale", component: SaleComponent
+  },
+  {
+    path: "report", component: ReportsComponent,
+
+    children: [
+      // {path: '', redirectTo: 'table-export', pathMatch: 'full'},
+      {
+        path: 'printSale/:id', // la ruta real es movimientos/nuevo
+        component: PrintSaleComponent
+      },
+      {
+        path: 'purchase/:id', // la ruta real es movimientos/editar
+        component: EditSupplierComponent,
+        data: { title: 'Editar', action: 'update' }
+      },
+      { path: '', redirectTo: '', pathMatch: 'full' }
+    ]
+  },
+
+  {
+    path: "supplier", component: SupplierComponent,
+    children: [
+      // {path: '', redirectTo: 'table-export', pathMatch: 'full'},
+      {
+        path: 'add', // la ruta real es movimientos/nuevo
+        component: AddSupplierComponent
+      },
+      {
+        path: 'edit/:id', // la ruta real es movimientos/editar
+        component: EditSupplierComponent,
+        data: { title: 'Editar', action: 'update' }
+      },
+      { path: '', redirectTo: '', pathMatch: 'full' }
+    ]
+  },
+  {
+    path: "customer", component: CustomerComponent,
+    children: [
+      // {path: '', redirectTo: 'table-export', pathMatch: 'full'},
+      {
+        path: 'add', // la ruta real es movimientos/nuevo
+        component: AddCustomerComponent
+      },
+      {
+        path: 'edit/:id', // la ruta real es movimientos/editar
+        component: EditCustomerComponent,
+        data: { title: 'Editar', action: 'update' }
+      },
+      {
+        path: 'delete/:id', // la ruta real es movimientos/nuevo
+        component: EditCustomerComponent
+      },
+      { path: '', redirectTo: '', pathMatch: 'full' }
+    ]
+  }, {
+    path: 'product',
+    component: ProductComponent,
+    children: [
+      // {path: '', redirectTo: 'table-export', pathMatch: 'full'},
+      {
+        path: 'add', // la ruta real es movimientos/nuevo
+        component: AddComponent
+      },
+      {
+        path: 'edit/:id', // la ruta real es movimientos/editar
+        component: EditComponent,
+        data: { title: 'Editar', action: 'update' }
+      },
+      {
+        path: 'delete/:id', // la ruta real es movimientos/nuevo
+        component: ProductComponent
+      },
+      { path: '', redirectTo: '', pathMatch: 'full' }
+    ]
+  },
+  { path: "test", component: TestComponent },
+  {
+    path: "**",
+    redirectTo: "login",
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	//imports: [RouterModule.forChild(routes)],	
-	exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes)],
+  //imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
