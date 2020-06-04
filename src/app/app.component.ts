@@ -81,12 +81,15 @@ export class AppComponent extends GeneralService implements OnInit, OnChanges {
 
     this.isHandset.subscribe((resp) => console.log('isHandset', resp));
 
-    this.StateService.getUser().subscribe(message => {
+    this.StateService.getUser().subscribe( (message: any) => {
       console.log("AppComponent -> getUser", message)
 
       //this.user$ = message.info;
       this.menu$ = message;
-      this.user$ = message.info[0];
+      if(typeof message.info != "undefined"){
+        this.user$ = message.info[0];
+      }
+
     })
 
     this.StateService.getConfig().subscribe(message => {

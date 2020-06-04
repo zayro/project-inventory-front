@@ -1,30 +1,30 @@
-
 <div [className]="paramSubscription ? '' : 'hidden'">
-    <mat-card>
+  <mat-card>
 
-        <mat-card-title>Cliente</mat-card-title>
+    <mat-card-title>Cliente </mat-card-title>
 
-        <hr>
+    <hr>
 
-        <table id="TableDbCustomer" class="table table-striped" width="100%" >
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>NAME</td>
-                    <td>EMAIL</td>
-                    <td>TELEFONO</td>
-                    <td>IDENTIFICACION</td>
-                    <td></td>
+    <table id="TableDbCustomer" class="table table-striped table-sm" width="100%">
+      <thead>
+        <tr>
+          <td class="customerAction" *ngIf="validEdit == '1' || validDelete == '1'" > </td>
+          <td>ID</td>
+          <td>NAME</td>
+          <td>EMAIL</td>
+          <td>TELEFONO</td>
+          <td>IDENTIFICACION</td>
 
-                </tr>
-            </thead>
 
-        </table>
+        </tr>
+      </thead>
 
-    </mat-card>
+    </table>
 
-    </div>
+  </mat-card>
 
-    <div>
-        <router-outlet> </router-outlet>
-    </div>
+</div>
+
+<div>
+  <router-outlet> </router-outlet>
+</div>

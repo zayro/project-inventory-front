@@ -4,7 +4,8 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  Injector
+  Injector,
+  ɵConsole
 } from "@angular/core";
 //import { MatSnackBar } from '@angular/material';
 
@@ -62,6 +63,13 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
   loading;
   btnEditar;
 
+  menu$;
+  user$;
+
+
+  validAdd;
+  validEdit;
+  validDelete;
 
 
   constructor(
@@ -99,6 +107,30 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
     // @ts-ignore
     this.table_datable = $('#TableDbProveedor').DataTable();
 
+    this.StateService.getUser().subscribe(data => {
+      console.log("AppComponent -> getUser", data)
+
+
+      this.menu$ = data.menu;
+      this.user$ = data.info[0];
+
+      console.log("AppComponent -> getUser", this.menu$)
+
+      const objIndex = this.menu$.findIndex((obj => obj.link == "customer"));
+      //const Find = this.menu$.find((obj => obj.link == "customer" && obj.link == "customer" ));
+      console.log('validado el permiso', objIndex);
+
+      if (objIndex >= 0) {
+        this.validAdd = this.menu$[objIndex].add;
+        this.validEdit = this.menu$[objIndex].edit;
+        this.validDelete = this.menu$[objIndex].delete;
+      } else {
+        this.router.navigate(['home/']);
+      }
+
+    })
+
+
   }
 
   RedirectAdd(): void {
@@ -113,8 +145,6 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
     this.router.navigate(['customer/edit/' + info.id]);
   }
 
-  // Must be declared as 'any', not as 'DataTables.Settings'
-
   getData() {
 
     let redirect = () => {
@@ -122,109 +152,581 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
     }
 
 
-    this.table_datable = $('#TableDbCustomer').DataTable({
-      pagingType: 'full_numbers',
-      paging: true,
-      info: true,
-      ordering: true,
-      searching: true,
-      responsive: false,
-      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
-      pageLength: 5,
-      ajax: {
-        url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
-        type: 'GET',
-        beforeSend: function (request) {
-          if (localStorage.getItem('token')) {
-            request.setRequestHeader(
-              'Authorization',
-              localStorage.getItem('token')
-            );
-          }
-        }
-      },
-      order: [[0, 'desc']],
-      columns: [
-        { data: 'id' },
-        { data: 'nombre' },
-        { data: 'email' },
-        { data: 'telefono' },
-        { data: 'identificacion' },
-        {
-          visible: true,
-          searchable: false,
-          className: "dt-center",
-          width: "10%",
-          render: function (data, type, full) {
+    // AGREGAR Y EDITAR Y ELIMINAR
+    if (this.validAdd === '1' && this.validEdit === '1' && this.validDelete === '1') {
 
-            // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
-            return `
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+
+              // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
+              return `
             <div class="text-center">
-            <button class="btn btn-outline-primary edit"><i  class="fa fa-edit"></i></button>
-            <button class="btn btn-outline-danger delete"><i  class="fa fa-close"></i></button>
+            <button class="btn btn-outline-primary btn-sm edit"><i  class="fa fa-edit"></i></button>
+            <button class="btn btn-outline-danger btn-sm delete"><i  class="fa fa-close"></i></button>
             </div>
             `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+        // Declare the use of the extension in the dom parameter
+        // dom: 'frtipBL',
+        //dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
+        dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+          "<'row'<'col-sm-12'tr>>" +
+          "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+        // Configure the buttons
+        buttons: [
+          // {
+          //   extend: 'copy',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'excel',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'print',
+          //   className: 'btn btn-outline-secondary',
+          //   exportOptions: {
+          //     columns: [0, 1, 2,3]
+          //   }
+          // },
+          // {
+          //   extend: 'pdfHtml5',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'csv',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'columnsToggle',
+          // },
+
+          {
+            text: '<button class="btn btn-outline-secondary"> <i  class="fa fa-plus"></i> </button> ',
+            className: 'btn btn-default btn-xs',
+            action: function (dt) {
+              redirect();
+              console.log('My custom button!');
+            }
+          },
+        ],
+        rowCallback: (row: Node, data: any, index: number) => {
+
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // $('td', row).unbind('click');
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          $('button.delete', row).bind('click', () => self.destroyData(data.id));
+          // $('button.btn', row).bind('click', () => self.Redirect(data));
+          return row;
+        },
+
+
+
+      });
+
+      /*
+        this.table_datable = $('#TableDbCustomer').DataTable({
+          destroy: true,
+        });
+        */
+    }
+
+    // NINGUNO
+    if (this.validAdd === '0' && this.validEdit === '0' && this.validDelete === '0') {
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
           }
-        }
-      ],
+        },
+        order: [[1, 'desc']],
+        columns: [
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
 
-      rowCallback: (row: Node, data: any, index: number) => {
 
-        const self = this;
-        // Unbind first in order to avoid any duplicate handler
-        // $('td', row).unbind('click');
-        $('button.edit', row).bind('click', () => self.RedirectEdit(data));
-        $('button.delete', row).bind('click', () => self.destroyData(data.id));
-        // $('button.btn', row).bind('click', () => self.Redirect(data));
-        return row;
-      },
+      });
 
-      // Declare the use of the extension in the dom parameter
-      // dom: 'frtipBL',
-      //dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
-      dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
-      // Configure the buttons
-      buttons: [
-        // {
-        //   extend: 'copy',
-        //   className: 'btn btn-outline-secondary',
-        // },
-        // {
-        //   extend: 'excel',
-        //   className: 'btn btn-outline-secondary',
-        // },
-        // {
-        //   extend: 'print',
-        //   className: 'btn btn-outline-secondary',
-        //   exportOptions: {
-        //     columns: [0, 1, 2,3]
-        //   }
-        // },
-        // {
-        //   extend: 'pdfHtml5',
-        //   className: 'btn btn-outline-secondary',
-        // },
-        // {
-        //   extend: 'csv',
-        //   className: 'btn btn-outline-secondary',
-        // },
-        // {
-        //   extend: 'columnsToggle',
-        // },
+      this.table_datable.columns( '.customerAction' ).visible( false );
+      this.table_datable.columns( [0] ).visible( false );
+      this.table_datable.columns.adjust().draw( false );
 
-        {
+      console.log('solo visualizacion');
+
+    }
+
+    // AGREGAR
+    if (this.validAdd === '1' && this.validEdit === '0' && this.validDelete === '0') {
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+        dom: `<'row'<'col-sm-6'B><'col-sm-6'f>>
+        <'row'<'col-sm-12'tr>>
+        <'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>`,
+        buttons: [
+          // {
+          //   extend: 'copy',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'excel',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'print',
+          //   className: 'btn btn-outline-secondary',
+          //   exportOptions: {
+          //     columns: [0, 1, 2,3]
+          //   }
+          // },
+          // {
+          //   extend: 'pdfHtml5',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'csv',
+          //   className: 'btn btn-outline-secondary',
+          // },
+          // {
+          //   extend: 'columnsToggle',
+          // },
+          {
+            text: '<button class="btn btn-outline-secondary"> <i  class="fa fa-plus"></i> </button> ',
+            className: 'btn btn-default btn-xs',
+            action: function (dt) {
+              redirect();
+              console.log('My custom button!');
+            }
+          },
+        ],
+      });
+
+    }
+
+    // AGREGAR Y EDITAR
+    if (this.validAdd === '1' && this.validEdit === '1' && this.validDelete === '0') {
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+              return `
+            <div class="text-center">
+            <button class="btn btn-outline-primary edit"><i  class="fa fa-edit"></i></button>
+            </div>
+            `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+        buttons: [{
           text: '<button class="btn btn-outline-secondary"> <i  class="fa fa-plus"></i> </button> ',
           className: 'btn btn-default btn-xs',
           action: function (dt) {
             redirect();
             console.log('My custom button!');
           }
+        }],
+        dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+        rowCallback: (row: Node, data: any, index: number) => {
+          const self = this;
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          return row;
         },
-      ],
 
-    });
+
+
+      });
+
+    }
+
+    // AGREGAR Y ELIMINAR
+    if (this.validAdd === '1' && this.validEdit === '0' && this.validDelete === '1') {
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+
+              // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
+              return `
+              <div class="text-center">
+              <button class="btn btn-outline-danger delete"><i  class="fa fa-close"></i></button>
+              </div>
+              `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+        buttons: [{
+          text: '<button class="btn btn-outline-secondary"> <i  class="fa fa-plus"></i> </button> ',
+          className: 'btn btn-default btn-xs',
+          action: function (dt) {
+            redirect();
+            console.log('My custom button!');
+          }
+        },],
+        dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+        rowCallback: (row: Node, data: any, index: number) => {
+
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // $('td', row).unbind('click');
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          $('button.delete', row).bind('click', () => self.destroyData(data.id));
+          // $('button.btn', row).bind('click', () => self.Redirect(data));
+          return row;
+        },
+
+
+
+      });
+    }
+
+    // EDITAR Y ELIMINAR
+    if (this.validAdd === '0' && this.validEdit === '1' && this.validDelete === '1') {
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+
+              // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
+              return `
+              <div class="text-center">
+              <button class="btn btn-outline-primary edit"><i  class="fa fa-edit"></i></button>
+              <button class="btn btn-outline-danger delete"><i  class="fa fa-close"></i></button>
+              </div>
+              `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+
+        rowCallback: (row: Node, data: any, index: number) => {
+
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // $('td', row).unbind('click');
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          $('button.delete', row).bind('click', () => self.destroyData(data.id));
+          // $('button.btn', row).bind('click', () => self.Redirect(data));
+          return row;
+        },
+
+
+
+      });
+
+
+    }
+
+    // EDITAR
+    if (this.validAdd === '0' && this.validEdit === '1' && this.validDelete === '0') {
+
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+
+              // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
+              return `
+              <div class="text-center">
+              <button class="btn btn-outline-primary edit"><i  class="fa fa-edit"></i></button>
+              </div>
+              `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+
+        rowCallback: (row: Node, data: any, index: number) => {
+
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // $('td', row).unbind('click');
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          $('button.delete', row).bind('click', () => self.destroyData(data.id));
+          // $('button.btn', row).bind('click', () => self.Redirect(data));
+          return row;
+        },
+
+
+
+      });
+
+    }
+
+    // ELIMINAR
+    if (this.validAdd === '0' && this.validEdit === '0' && this.validDelete === '1') {
+      this.table_datable = $('#TableDbCustomer').DataTable({
+        pagingType: 'full_numbers',
+        paging: true,
+        info: true,
+        ordering: true,
+        searching: true,
+        responsive: false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, 'All']],
+        pageLength: 5,
+        ajax: {
+          url: `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/all/view_cliente`,
+          type: 'GET',
+          beforeSend: function (request) {
+            if (localStorage.getItem('token')) {
+              request.setRequestHeader(
+                'Authorization',
+                localStorage.getItem('token')
+              );
+            }
+          }
+        },
+        order: [[1, 'desc']],
+        columns: [
+          {
+            visible: true,
+            searchable: false,
+            className: "dt-center",
+            width: "10%",
+            render: function (data, type, full) {
+
+              // return '<a data-toggle="modal" data-target="#exampleModal" data-backdrop="false"> <i  class="fa fa-plus"></i><a/> ';
+              return `
+              <div class="text-center">
+              <button class="btn btn-outline-danger delete"><i  class="fa fa-close"></i></button>
+              </div>
+              `;
+            }
+          },
+          { data: 'id' },
+          { data: 'nombre' },
+          { data: 'email' },
+          { data: 'telefono' },
+          { data: 'identificacion' }
+        ],
+
+        rowCallback: (row: Node, data: any, index: number) => {
+
+          const self = this;
+          // Unbind first in order to avoid any duplicate handler
+          // $('td', row).unbind('click');
+          $('button.edit', row).bind('click', () => self.RedirectEdit(data));
+          $('button.delete', row).bind('click', () => self.destroyData(data.id));
+          // $('button.btn', row).bind('click', () => self.Redirect(data));
+          return row;
+        },
+
+
+
+      });
+
+
+    }
+
+
+
+
   }
 
   destroyData(id) {
@@ -317,13 +819,14 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
 
   ngOnInit(): void {
     console.log('ngOnInit');
-    this.getData();
+
 
   }
 
   ngAfterViewInit(): void {
 
     console.log('ngAfterViewInit');
+    this.getData();
 
   }
 

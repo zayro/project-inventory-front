@@ -37,7 +37,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 		injector: Injector
 	) {
 		super(injector);
-		
+
 		this.table = this.environments.module.login.view;
 
 		this.formSend = this.formBuild.group({
@@ -81,7 +81,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 		this.api.insert("/api/access/select", select).subscribe(
 			(response: any) => {
 				if (response.status) {
-					
+
 					this.StateService.setUser("menu", response.data);
 				}
 			},
@@ -111,7 +111,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 
 				if (response.status) {
 					this.StateService.setUser("info", response.data);
-					this.StateService.setConfig({ shutdown: true});
+
 				}
 			},
 			(err) => {
@@ -140,7 +140,9 @@ export class LoginComponent extends GeneralService implements OnInit {
 					// consulta permisos del menu
 					this.menu(this.formSend.get("user").value);
 					// search information user
-					this.infoUser(this.formSend.get("user").value);
+          this.infoUser(this.formSend.get("user").value);
+          // config default
+          this.StateService.setConfig({ shutdown: true});
 					// redirecciona
 					this.router.navigate(["home"]);
 				}
@@ -181,7 +183,7 @@ export class LoginComponent extends GeneralService implements OnInit {
 				this.openSnackBar(`ocurrio un problema al enviar el correo`);
 			}
 		);
-	}	
+	}
 
 	/**
 	 *
