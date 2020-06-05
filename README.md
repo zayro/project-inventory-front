@@ -86,6 +86,9 @@ ng g c modules/application/report/inventory -m modules/application/application.m
 
 ng g c modules/application/config -m modules/application/application.module.ts
 
+ng serve -o --port 82  --disableHostCheck true
+
+ng build --prod --base-href /application/
 
 # - variable declaration
 

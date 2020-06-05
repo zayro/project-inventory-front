@@ -65,7 +65,7 @@ import { APP_BASE_HREF } from "@angular/common";
   ],
   providers: [
     service.AuthguardGuard,
-    { provide: APP_BASE_HREF, useValue: window["_app_base"] || "/" },
+    ///{ provide: APP_BASE_HREF, useValue: window["_app_base"] || "/" },
   ],
   bootstrap: [AppComponent],
 })

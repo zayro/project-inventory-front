@@ -7,7 +7,6 @@ import {
   Injector,
   ɵConsole
 } from "@angular/core";
-//import { MatSnackBar } from '@angular/material';
 
 import {
   FormBuilder,
@@ -204,9 +203,9 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
         // Declare the use of the extension in the dom parameter
         // dom: 'frtipBL',
         //dom: '<"customize"><"toolbar"fl<"clear">>rt<"bottom"ip<"clear">>',
-        dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-          "<'row'<'col-sm-12'tr>>" +
-          "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+        dom: `<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>
+          <'row'<'col-sm-12'tr>>
+          <'row'<'col-sm-12 col-md-4'i><'col-sm-12 col-md-4 text-center'l><'col-sm-12 col-md-4'p>>`,
         // Configure the buttons
         buttons: [
           // {
@@ -303,9 +302,9 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
 
       });
 
-      this.table_datable.columns( '.customerAction' ).visible( false );
-      this.table_datable.columns( [0] ).visible( false );
-      this.table_datable.columns.adjust().draw( false );
+      this.table_datable.columns('.customerAction').visible(false);
+      this.table_datable.columns([0]).visible(false);
+      this.table_datable.columns.adjust().draw(false);
 
       console.log('solo visualizacion');
 
@@ -439,8 +438,8 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
           }
         }],
         dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+          "<'row'<'col-sm-12'tr>>" +
+          "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
         rowCallback: (row: Node, data: any, index: number) => {
           const self = this;
           $('button.edit', row).bind('click', () => self.RedirectEdit(data));
@@ -509,8 +508,8 @@ export class CustomerComponent extends GeneralService implements AfterViewInit, 
           }
         },],
         dom: "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
+          "<'row'<'col-sm-12'tr>>" +
+          "<'row'<'col-sm-4'i><'col-sm-4 text-center'l><'col-sm-4'p>>",
         rowCallback: (row: Node, data: any, index: number) => {
 
           const self = this;

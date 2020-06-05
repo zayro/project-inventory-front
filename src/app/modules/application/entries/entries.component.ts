@@ -1,6 +1,14 @@
-import { Component, OnInit, Injector } from "@angular/core";
-//import { MatSnackBar } from '@angular/material';
-import { Router } from "@angular/router";
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  Injector,
+  ɵConsole
+} from "@angular/core";
+
+
 import {
   FormBuilder,
   FormControl,
@@ -23,7 +31,7 @@ import { GeneralService } from "../../../services/general.service";
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.scss']
 })
-export class EntriesComponent extends GeneralService implements OnInit {
+export class EntriesComponent extends GeneralService implements AfterViewInit, OnInit, OnDestroy {
 
 	/**
 	 * INITIAL VAR
@@ -60,7 +68,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   detalle = [];
 
-  
+
 
 
   constructor(
@@ -81,30 +89,30 @@ export class EntriesComponent extends GeneralService implements OnInit {
       descuento: [null, [Validators.required]],
       total: [null, [Validators.required]],
       identificacion_usuario: [null, [Validators.required]],
-      
+
     });
 
-    
+
     this.translate.setTranslate('es');
 
     $(document).on("keypress", 'form', function (e) {
       var code = e.keyCode || e.which;
       if (code == 13) {
-          e.preventDefault();
-          return false;
+        e.preventDefault();
+        return false;
       }
     });
 
 
-		this.StateService.getUser().subscribe(message => {
-			console.log("AppComponent -> message", message)
+    this.StateService.getUser().subscribe(message => {
+      console.log("AppComponent -> message", message)
 
       this.user$ = message.info[0];
 
       this.form.get('identificacion_usuario').setValue(this.user$.id);
-      
-      
-		})
+
+
+    })
 
 
 
@@ -112,14 +120,14 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   /**
    * Methods And Actions
-   * @param data 
+   * @param data
    */
 
-  add(data){
+  add(data) {
 
-   console.log("EntriesComponent -> add -> add", data);
-  
-   this.detalle.push(data);
+    console.log("EntriesComponent -> add -> add", data);
+
+    this.detalle.push(data);
 
     // Not duplicate content
     this.detalle = [...new Map(this.detalle.map(item => [item.serial, item])).values()];
@@ -130,34 +138,34 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   }
 
-  edit(data, field, event){
-    
+  edit(data, field, event) {
+
     const objIndex = this.detalle.findIndex((obj => obj.serial == data.serial));
-    
+
     //console.log("EntriesComponent -> edit -> objIndex", objIndex)
 
     this.detalle[objIndex][field] = event.target.value;
-    this.detalle[objIndex].total =  this.detalle[objIndex].cantidad  * this.detalle[objIndex].precio_venta;
+    this.detalle[objIndex].total = this.detalle[objIndex].cantidad * this.detalle[objIndex].precio_venta;
 
     this.subtotal = this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
-    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value / 100))
     this.valorNeto = this.valorNeto - this.descuento.value;
     this.form.get('total').setValue(this.valorNeto);
 
   }
 
-  delete(data){
+  delete(data) {
 
     console.log(this.detalle.length);
-    
+
     this.detalle = this.detalle.filter(item => item.serial !== data.serial)
 
     console.log(this.detalle.length);
 
-    if(this.detalle.length == 0){    
+    if (this.detalle.length == 0) {
 
       this.subtotal = 0;
-      this.valorNeto = 0;  
+      this.valorNeto = 0;
 
     }
 
@@ -167,7 +175,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   }
 
-  clearCustomer(){
+  clearCustomer() {
     console.log('ingreso');
     this.id_tipo_tercero = '';
   }
@@ -176,21 +184,21 @@ export class EntriesComponent extends GeneralService implements OnInit {
     //return this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
     this.subtotal = this.detalle.map(t => t.total).reduce((acc, value) => acc + value, 0);
     this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value / 100));
-    this.valorNeto = this.valorNeto - this.form.get("descuento").value ;
+    this.valorNeto = this.valorNeto - this.form.get("descuento").value;
     this.form.get('total').setValue(this.valorNeto);
   }
 
-  PutTax(){   
+  PutTax() {
 
     console.log('update iva', this.form.get("impuesto").value);
 
     //this.valorNeto = this.subtotal + (this.subtotal * (this.iva.value  / 100))
-    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value  / 100))
+    this.valorNeto = this.subtotal + (this.subtotal * (this.form.get("impuesto").value / 100))
     this.form.get('total').setValue(this.valorNeto);
 
   }
 
-  PutDiscount(){ 
+  PutDiscount() {
 
     console.log('update PutDiscount', this.form.get("descuento").value);
 
@@ -202,7 +210,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   /**
    *  HTTP REQUEST
-   * 
+   *
    */
 
   http_tipo_pago() {
@@ -273,7 +281,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
         }
       );
   }
-  
+
   http_tercero(id) {
     this.loading = true;
     // utiliza la peticion al api general
@@ -305,8 +313,8 @@ export class EntriesComponent extends GeneralService implements OnInit {
       );
   }
 
-  http_producto(event, value){
-    if(event.charCode == 13){
+  http_producto(event, value) {
+    if (event.charCode == 13) {
       console.log('buscando');
       this.loading = true;
       // utiliza la peticion al api general
@@ -319,12 +327,12 @@ export class EntriesComponent extends GeneralService implements OnInit {
           (response) => {
             this.loading = false;
 
-            if(response.success){
+            if (response.success) {
 
-              let dataProduct: any = {  };
+              let dataProduct: any = {};
               dataProduct = response.data[0];
               dataProduct.cantidad = 1;
-              dataProduct.total = 1 * dataProduct.precio_venta;         
+              dataProduct.total = 1 * dataProduct.precio_venta;
 
               this.add(dataProduct);
 
@@ -332,8 +340,8 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
 
             }
-   
-  
+
+
           },
           err => {
             this.loading = false;
@@ -351,14 +359,14 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
   }
 
-  httpSave(){
+  httpSave() {
     this.loading = true;
     // utiliza la peticion al api general
     //console.log('http_lptipoausentismo', `/${this.environments.prefix}/${this.environments.dataBase}/all/lptipoausentismo`)
 
     const send = {
       "maestro_movimiento": this.form.value,
-      "detalle_movimiento":  this.detalle 
+      "detalle_movimiento": this.detalle
     };
 
     this.api
@@ -370,7 +378,7 @@ export class EntriesComponent extends GeneralService implements OnInit {
         (response) => {
           this.loading = false;
 
-          if(response.success){
+          if (response.success) {
 
             this.alert("Proceso exitoso  ", "Restornar a la lista", "success");
 
@@ -401,11 +409,11 @@ export class EntriesComponent extends GeneralService implements OnInit {
     let urlSearch = `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/filterLikeSearch/producto/nombre/`;
 
     let redirect = () => {
-      console.log('agregando', dataProducto);     
+      console.log('agregando', dataProducto);
       let item: any = {};
       item = dataProducto;
       item.cantidad = 1;
-      item.total = 1 * item.precio_venta;     
+      item.total = 1 * item.precio_venta;
       this.add(item);
     };
 
@@ -413,63 +421,72 @@ export class EntriesComponent extends GeneralService implements OnInit {
 
     var $eventSelect = $(".js-example-basic-single");
 
-    $eventSelect.on("select2:select", function (e) { 
+    $eventSelect.on("select2:select", function (e) {
       console.log("EntriesComponent -> ngOnInit -> e", e);
       redirect();
       $(".js-example-basic-single").val(null).trigger("change");
-     });
-    
+    });
+
     $('.js-example-basic-single').on('change', function (e) {
-      
+
       console.log($(".js-example-basic-single").val());
-      
+
     });
 
 
+    $('.js-example-basic-single').select2({
+      minimumInputLength: 1,
+      language: "es",
+      allowClear: true,
+      ajax: {
+        url: urlSearch,
+        dataType: 'json',
+        data: function (params) {
+          var query = {
+            search: params.term,
+            type: 'public'
+          }
 
-      
-      $('.js-example-basic-single').select2({
-        minimumInputLength: 1,
-        allowClear: true,
-        ajax: {
-          url: urlSearch,
-          dataType: 'json',
-          data: function (params) {
-            var query = {
-              search: params.term,
-              type: 'public'
-            }
-      
-            // Query parameters will be ?search=[term]&type=public
-            return query;
-          },
-          processResults: function (response, page) {
-            return {
+          // Query parameters will be ?search=[term]&type=public
+          return query;
+        },
+        processResults: function (response, page) {
+          return {
 
-                results: $.map(response.data, function (item) {               
-                  
-
-                  
-                  dataProducto = item
-    
-                  //redirect(item);                             
-                  
-                    return {
-                        text: item.nombre,
-                        name: item.nombre,
-                        id: item.id
-                    }
+            results: $.map(response.data, function (item) {
 
 
-                })
-            };
-        }, 
 
-        }
+              dataProducto = item
 
-      });
+              //redirect(item);
+
+              return {
+                text: item.nombre,
+                name: item.nombre,
+                id: item.id
+              }
+
+
+            })
+          };
+        },
+
+      }
+
+    });
 
   }
 
+  ngAfterViewInit(): void {
+
+    console.log('ngAfterViewInit');
+
+
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+  }
 
 }

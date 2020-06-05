@@ -4,33 +4,40 @@
 
 export const environment = {
   production: true,
-  baseUrl: '/web/',
+  baseUrl: '/aplication/',
   secret_route: 'secret',
-  api: 'http://186.183.178.11:8000',
+  api: 'http://127.0.0.1:8000',
+  dbAccess: 'access',
+  db: 'inventario',
+  prefix: 'api',
   plugin: {
     main: 'assets/i18n/',
     datable: 'assets/i18n/datable/'
   },
   main: '/api',
   user: '/api/user',
-  db: '/api/demo',
-  select: {
+    select: {
     general: '/api/demo/',
     filtro: '/api/demo/filtro',
     all: '/api/demo/all',
     select: '/api/demo/select',
+    insecure: '/unsafe/demo/',
   },
   insert: {
-    general: '/api/demo/create'
+    general: '/api/demo/unsafe',
+    insecure: '/unsafe/demo/unsafe',
   },
   update: {
-    general: '/api/demo/edit'
+    general: '/api/demo/edit',
+    insecure: '/unsafe/demo/edit',
   },
   desactivate: {
-    general: '/api/demo/hidden'
+    general: '/api/demo/hidden',
+    insecure: '/unsafe/demo/hidden',
   },
   delete: {
-    general: '/api/demo/destroy'
+    general: '/api/demo/destroy',
+    insecure: '/unsafe/demo/destroy',
   },
   upload: {
     general: '/api/demo/upload'

@@ -1,24 +1,6 @@
-.mat-card-header {
-    width: 90%;
-    margin: 0 auto;
-    transform: translate(-50%,-50%);
-    display: initial;
-  }
-
-  .login-title {
-    margin: 0 auto;
-    padding-top: 20px;
-  }
-
-  .mat-card-avatar{
-    height: 120px;
-    width: 120px;
-
-  }
-
-  .mat-card-header-text {
-    text-align: center;
-  }
+.full-width {
+  width: 100%;
+}
 
   input[type="file"]#image {
     width: 0.1px;

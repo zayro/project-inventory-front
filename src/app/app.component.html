@@ -63,7 +63,7 @@
       <mat-nav-list>
 
         <a mat-subheader mat-list-item *ngFor="let item of menu$.menu" routerLink="{{item.link}}"
-          (click)="sidenav.toggle()">
+          routerLinkActive="active-link" (click)="sidenav.toggle()">
           <mat-icon aria-hidden="false" aria-label="icon menu">{{item.icon}}</mat-icon>
 
           <p class="menu-lateral">
@@ -91,7 +91,7 @@
 
         <span class="example-spacer"></span>
 
-        <div class="text-toolbar" [matMenuTriggerFor]="config">
+        <div class="text-toolbar" >
           <h4> {{user$.first_name + ' ' + user$.last_name}}</h4>
         </div>
 
