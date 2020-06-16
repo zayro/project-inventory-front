@@ -407,8 +407,9 @@ export class EntriesComponent extends GeneralService implements AfterViewInit, O
     this.http_tipo_comprobante();
 
     let urlSearch = `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/filterLikeSearch/producto/nombre/`;
+    let urlProveedor = `${this.environments.api}/${this.environments.prefix}/${this.environments.db}/filterLikeMultiple/view_proveedor/`;
 
-    let redirect = () => {
+    let addProduct = () => {
       console.log('agregando', dataProducto);
       let item: any = {};
       item = dataProducto;
@@ -417,20 +418,29 @@ export class EntriesComponent extends GeneralService implements AfterViewInit, O
       this.add(item);
     };
 
+    let CaptureTercero = (data) => {
+      this.tercero = data;
+      this.form.get('identificacion_tercero').setValue(data.identificacion);
+
+    }
+
+    let ClearTercero = () => {
+      this.tercero = null;
+    }
+
     let dataProducto;
 
     var $eventSelect = $(".js-example-basic-single");
+    var $BuscarProveedor = $(".buscarProveedor");
 
     $eventSelect.on("select2:select", function (e) {
       console.log("EntriesComponent -> ngOnInit -> e", e);
-      redirect();
+      addProduct();
       $(".js-example-basic-single").val(null).trigger("change");
     });
 
     $('.js-example-basic-single').on('change', function (e) {
-
       console.log($(".js-example-basic-single").val());
-
     });
 
 
@@ -475,6 +485,49 @@ export class EntriesComponent extends GeneralService implements AfterViewInit, O
       }
 
     });
+
+    $('.buscarProveedor').select2({
+      minimumInputLength: 1,
+      language: "es",
+      allowClear: true,
+      placeholder :'select..',
+      ajax: {
+        url: urlProveedor,
+        dataType: 'json',
+        data: function (params) {
+          var query = {
+            search: params.term,
+            filter: 'identificacion,nombre'
+          }
+          // Query parameters will be ?search=[term]&type=public
+          return query;
+        },
+        processResults: function (response, page) {
+          return {
+
+            results: $.map(response.data, function (item) {
+              CaptureTercero(item);
+              //redirect(item);
+              return {
+                text: item.nombre,
+                name: item.nombre,
+                id: item.id
+              }
+
+
+            })
+          };
+        },
+
+      }
+
+    });
+
+    $BuscarProveedor.on('select2:unselecting', function(event) {
+      console.log('select2-removed',event);
+      ClearTercero();
+  })
+
 
   }
 

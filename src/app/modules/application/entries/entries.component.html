@@ -1,59 +1,59 @@
 <div class="container-fluid">
 
-    <form class="example-form" #f="ngForm" class="formi-container" [formGroup]="form"  (submit)="httpSave()" > 
+  <form class="example-form" #f="ngForm" class="formi-container" [formGroup]="form" (submit)="httpSave()">
 
-        <mat-card class="mat-elevation-z5" >
+    <mat-card class="mat-elevation-z5">
 
-            <mat-card-title>Ingreso de Mercancia</mat-card-title>
-        
-            <hr>
-        
+      <mat-card-title>Ingreso de Mercancia</mat-card-title>
 
-            <div class="row">
+      <hr>
 
 
-                <div class="col-md-4 col-sm-12">
-
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Tipo Pago</mat-label>
-                        <mat-select formControlName="id_tipo_pago">
-                            <mat-option *ngFor="let data of tipo_pago" [value]="data.id">
-                                {{ data.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                </div>
-
-                <div class="col-md-4 col-sm-12">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Description</mat-label>
-                        <input matInput placeholder="Description" formControlName="descripcion">
-                    </mat-form-field>
-
-                </div>  
-
-                <div class="col-md-4 col-sm-12">
-
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Tipo Comprobante</mat-label>
-                        <mat-select formControlName="id_tipo_comprobante">
-                            <mat-option *ngFor="let data of tipo_comprobante" [value]="data.id">
-                                {{ data.nombre }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+      <div class="row">
 
 
-                </div>
-                
-            </div>
+        <div class="col-md-4 col-sm-12">
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Tipo Pago</mat-label>
+            <mat-select formControlName="id_tipo_pago">
+              <mat-option *ngFor="let data of tipo_pago" [value]="data.id">
+                {{ data.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <input matInput placeholder="Description" formControlName="descripcion">
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Tipo Comprobante</mat-label>
+            <mat-select formControlName="id_tipo_comprobante">
+              <mat-option *ngFor="let data of tipo_comprobante" [value]="data.id">
+                {{ data.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
 
-                <div class="row">
+        </div>
+
+      </div>
 
 
-                <div class="col-md-10 col-sm-12">
+      <div class="row">
+
+
+        <!-- <div class="col-md-10 col-sm-12">
                     <mat-form-field class="example-full-width">
                         <mat-label>Buscar Cliente o Proveedor</mat-label>
                         <input matInput type="text" formControlName="identificacion_tercero">
@@ -68,132 +68,147 @@
                 <div class="col-md-2 col-sm-12">
                     <button mat-raised-button class="example-full-width" color="primary" type="button"
                         (click)="http_tercero(form.get('identificacion_tercero').value)">Search</button>
+                </div> -->
+
+        <div class="col-sm-12">
+
+          <div class="form-group">
+            <label class="control-label" for="buscarProveedor">Buscar Proveedor</label>
+            <select class="buscarProveedor form-control" id="buscarProveedor"></select>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+
+      <div class="row" *ngIf="tercero">
+
+        <div class="col-sm-12 col-md-4">
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ex. San Francisco" value="{{tercero.nombre}}">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <mat-form-field class="example-full-width">
+            <mat-label>Telefono</mat-label>
+            <input matInput placeholder="Ex. California" value="{{tercero.telefono}}" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ex. California" value="{{tercero.email}}" readonly>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="row">
+
+        <div class="col-sm-12 col-md-6">
+          <mat-form-field class="example-full-width">
+            <mat-label>Buscar</mat-label>
+            <input type="text" matInput placeholder="Buscar" #serial_value
+              (keypress)="http_producto($event, serial_value.value)">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+          <label for="js-example-basic-single">Buscar Producto</label>
+          <select class="js-example-basic-single form-control" id="js-example-basic-single" name="states">
+          </select>
+        </div>
+
+      </div>
+
+      <hr>
+
+
+
+      <div class="row container-fluid-table">
+        <table id="example" class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>serial</th>
+              <th>producto</th>
+              <th>cantidad</th>
+              <th>valor</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of detalle; let i = index">
+              <td>
+                <p (click)="delete(data)">
+                  <mat-icon aria-hidden="false" aria-label="icon menu">delete</mat-icon>
+                </p>
+              </td>
+              <td>{{data.serial}}</td>
+              <td>{{data.nombre}}</td>
+              <td><input type="text" class="product" value="{{data.cantidad}}" name="cantidad_{{i}}" id="cantidad_{{i}}"
+                  (change)="edit(data, 'cantidad', $event)"> </td>
+              <td><input type="text" class="product" value="{{data.precio_venta}}" name="precio_{{i}}" id="precio_{{i}}"
+                  (change)="edit(data, 'precio_venta', $event)"> </td>
+              <td>{{data.total | currency}} </td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+
+            <tr>
+              <th colspan="5">Subtotal</th>
+              <th>{{subtotal | currency}}</th>
+            </tr>
+
+            <tr>
+              <th colspan="5">Impuesto</th>
+              <th>
+                <div class="example-full-width">
+                  <input type="text" class="product" value="{{iva}}" name="iva" id="iva" (change)="PutTax()"
+                    formControlName="impuesto">
                 </div>
+              </th>
 
-       
-
-            </div>
-
-            
-
-            <table class="table" cellspacing="0" *ngIf="tercero">
-                <tr>
-                    <td>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Nombre</mat-label>
-                            <input matInput placeholder="Ex. San Francisco" value="{{tercero.nombre}}">
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Telefono</mat-label>
-                            <input matInput placeholder="Ex. California" value="{{tercero.telefono}}">
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Ex. California" value="{{tercero.email}}">
-                        </mat-form-field>
-                    </td>
-
-                </tr>
-            </table>
-
-            <div class="row">
-
-                <div class="col-sm-6">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Buscar</mat-label>
-                        <input type="text" matInput placeholder="Buscar" #serial_value
-                            (keypress)="http_producto($event, serial_value.value)">
-                        <mat-icon matSuffix>mode_edit</mat-icon>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-sm-6">
-                    <select class="js-example-basic-single form-control" id="js-example-basic-single" name="states" >
-                    </select>
-                </div>
-
-            </div>
+            </tr>
 
 
+            <tr>
+              <th colspan="5">Descuento</th>
+              <th>
 
-            <div class="container-fluid-table">
-                <table id="example" class="table table-bordered table-sm">
-                    <thead>
-                        <tr>
-                            <th>Action</th>
-                            <th>serial</th>
-                            <th>producto</th>
-                            <th>cantidad</th>
-                            <th>valor</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of detalle; let i = index">
-                            <td>
-                                <p (click)="delete(data)">
-                                    <mat-icon aria-hidden="false" aria-label="icon menu">delete</mat-icon>
-                                </p>
-                            </td>
-                            <td>{{data.serial}}</td>
-                            <td>{{data.nombre}}</td>
-                            <td><input type="text" class="product" value="{{data.cantidad}}" name="cantidad_{{i}}"
-                                    id="cantidad_{{i}}" (change)="edit(data, 'cantidad', $event)"> </td>
-                            <td><input type="text" class="product" value="{{data.precio_venta}}" name="precio_{{i}}"
-                                    id="precio_{{i}}" (change)="edit(data, 'precio_venta', $event)"> </td>
-                            <td>{{data.total | currency}} </td>
-                        </tr>
-                    </tbody>
+                <input type="text" value="{{descuento}}" class="product" name="descuento" id="descuento"
+                  (change)="PutDiscount()" formControlName="descuento">
 
-                    <tfoot>
+              </th>
 
-                        <tr>
-                            <th colspan="5">Subtotal</th>
-                            <th>{{subtotal | currency}}</th>
-                        </tr>
-
-                        <tr>
-                            <th colspan="5">Iva</th>
-                            <th>
-                                <div class="example-full-width">
-                                    <input type="text" class="product" value="{{iva}}" name="iva" id="iva"
-                                        (change)="PutTax()" formControlName="impuesto">
-                                </div>
-                            </th>
-
-                        </tr>
+            </tr>
 
 
-                        <tr>
-                            <th colspan="5">Descuento</th>
-                            <th>
-
-                                <input type="text" value="{{descuento}}" class="product" name="descuento" id="descuento"
-                                    (change)="PutDiscount()" formControlName="descuento">
-
-                            </th>
-
-                        </tr>
+            <tr>
+              <th colspan="5">Total a Pagar: </th>
+              <th>{{valorNeto | currency}} </th>
+            </tr>
 
 
-                        <tr>
-                            <th colspan="5">Total a Pagar: </th>
-                            <th>{{valorNeto | currency}} </th>
-                        </tr>
+          </tfoot>
+
+        </table>
+
+      </div>
 
 
-                    </tfoot>
-
-                </table>
-
-            </div>
-
-
-            <!--             <table mat-table [dataSource]="detalle" class="mat-elevation-z1">
+      <!--             <table mat-table [dataSource]="detalle" class="mat-elevation-z1">
 
 
                 <ng-container matColumnDef="action">
@@ -201,7 +216,7 @@
                     <td mat-cell *matCellDef="let element">
                         <mat-icon aria-hidden="false" aria-label="icon menu" (click)="delete(element)">delete</mat-icon>
                     </td>
-                   
+
                 </ng-container>
 
 
@@ -210,14 +225,14 @@
                     <td mat-cell *matCellDef="let element">
                         {{element.serial}}
                     </td>
-                    
+
                 </ng-container>
 
 
                 <ng-container matColumnDef="nombre">
                     <th mat-header-cell *matHeaderCellDef> Producto </th>
                     <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                    
+
                 </ng-container>
 
                 <ng-container matColumnDef="cantidad">
@@ -226,7 +241,7 @@
                         <input type="number" class="product" value="{{element.cantidad}}" name="cantidad_{{i}}"
                             id="cantidad_{{i}}" (change)="edit(element, 'cantidad', $event)">
                     </td>
-                    
+
                 </ng-container>
 
                 <ng-container matColumnDef="precio_venta">
@@ -239,7 +254,7 @@
 
                 <ng-container matColumnDef="total">
                     <th mat-header-cell *matHeaderCellDef> Total </th>
-                    <td mat-cell *matCellDef="let element"> {{element.total}} </td>                    
+                    <td mat-cell *matCellDef="let element"> {{element.total}} </td>
                 </ng-container>
 
 
@@ -249,7 +264,7 @@
 
                 </ng-container>
                 <ng-container matColumnDef="disclaimers">
-      
+
                     <td mat-footer-cell *matFooterCellDef colspan="2" class="text-right" >  {{valorNeto | currency}} </td>
                 </ng-container>
 
@@ -262,25 +277,25 @@
 
 
 
-            <mat-card-actions>
-                <button mat-button mat-raised-button color="primary" 
-                    type="submit" [disabled]="form.invalid && detalle.length < 1">{{ translate.locale.BUTTON.send  }}</button>
-            </mat-card-actions>
+      <mat-card-actions>
+        <button mat-button mat-raised-button color="primary" type="submit"
+          [disabled]="form.invalid && detalle.length < 1">{{ translate.locale.BUTTON.send  }}</button>
+      </mat-card-actions>
 
-            <!-- <p>Form value: {{ form.value | json }}</p>
+      <!-- <p>Form value: {{ form.value | json }}</p>
             <p>Form status: {{ form.status | json }}</p>
             <p>Form status: {{ form.invalid}}</p>
             <p>Form status: {{  detalle.length < 1 }}</p> -->
 
-        </mat-card>
+    </mat-card>
 
 
-    </form>
+  </form>
 
 
 
 
 
-    
+
 
 </div>
