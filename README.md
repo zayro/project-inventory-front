@@ -103,3 +103,12 @@ ng build --prod --base-href /application/
 * - structural directives
 
 ng serve --host 0.0.0.0
+
+# important
+
+include library necessary into polyfills exam,ple:
+
+import "jquery";
+import "datatables.net";
+import "datatables.net-dt";
+import "datatables.net-buttons";
