@@ -41,7 +41,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-avatar": "^3.7.0",
     "pdfmake": "^0.1.65",
     "rxjs": "~6.5.5",
